@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: 3.9
       - name: Install Poetry
-        uses: 'poetry/poetry-action@v2'
+        run: pip install poetry
       - name: Install requirements
         run: poetry install
       - name: Build docs
