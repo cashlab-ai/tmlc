@@ -1,0 +1,116 @@
+# Example configuration file for LightningModuleConfig
+trainer_config:
+  seed: 42  # seed for reproducibility
+  kwargs:
+      max_epochs: 1  # maximum number of epochs to train for
+      accelerator: cpu  # use CPU for training
+      log_every_n_steps: 5  # log after every 5 steps
+      enable_progress_bar: True  # show progress bar during training
+  mlflow_config:
+    artifact_folder: model/
+    model_path: model/mode.onnx
+    tokenizer_path: model/tokenizer
+    description: "This is a description"
+    tags:
+      one: 1
+
+  callbacks:
+      - module: "pytorch_lightning.callbacks.early_stopping"  # early stopping callback to stop training if val_loss doesn't improve
+        func: "EarlyStopping"
+        kwargs:
+            monitor: val_loss  # monitor validation loss
+            patience: 5  # number of epochs with no improvement after which training will be stopped
+            mode: min  # minimize the monitored quantity
+      - module: "pytorch_lightning.callbacks.model_checkpoint"  # model checkpoint callback to save the best model
+        func: "ModelCheckpoint"
+        kwargs:
+            dirpath: 'dirpath'  # directory to save the checkpoint
+            filename: checkpoint  # file name for the checkpoint
+            monitor: val_loss  # monitor validation loss
+            mode: min  # minimize the monitored quantity
+            save_top_k: 1  # save the top 1 models
+            save_last: True  # save the last checkpoint
+
+  loggers:
+      - module: "lightning.pytorch.loggers"  # logger to log the experiment to MLFlow
+        func: "MLFlowLogger"
+        kwargs:
+          experiment_name: experiment_name  # name of the experiment
+          tracking_uri: "mlruns"  # URI of the MLFlow server
+      - module: "lightning.pytorch.loggers"  # logger to log the experiment to TensorBoard
+        func: "TensorBoardLogger"
+        kwargs:
+          save_dir: tensorboard_logdir  # directory to save the logs
+          name: run_name  # name of the run
+
+  lightning_module_config:
+    model_name: TMLC  # name of the model
+    model:
+      pretrained_model:
+        path: bert-base-cased
+      dropout_prob: 0.1  # dropout probability
+      hidden_size: 768  # size of the hidden layer
+      num_classes: 1  # number of classes
+      calculate_predictions:
+        module: "tmlc.components.predictions"  # predictions module
+        func: "calculate_predictions"  # calculate predictions function
+    calculate_metrics:
+        module: "tmlc.components.metrics"  # metrics module
+        func: "calculate_metrics"  # calculate metrics function
+        kwargs:
+          n_iterations: 1000 # Number of iterations for the bootstrap error calculation
+          percentile: 2.5 # Lower percentile to calculate symetric error bars in the bootstrap error calculation
+    optimizer:
+        module: "torch.optim"  # optimizer module
+        func: "AdamW"  # optimizer function
+        kwargs:
+          lr: 0.000001  # learning rate
+    define_loss:
+        module: tmlc.components.loss  # loss module
+        func: bceloss_inverse_frequency_weighted  # loss function
+    predict:
+      module: "torch"  # module to use for prediction
+      func: "sigmoid"  # function to use for prediction
+    calculate_best_thresholds:
+      module: "tmlc.components.calculate_best_thresholds"  # module to use for calculating best thresholds
+      func: "calculate_best_thresholds"  # function to use for calculating best thresholds
+      kwargs:
+          vmin: 0.1  # minimum value for the threshold
+          vmax: 0.9  # maximum value for the threshold
+          step: 0.05  # step size for the threshold
+
+  data_module_config:
+    state_file: "state.bin" # Location of state file
+    dataset:
+      batch_size: 5 # Batch size for data loader
+      tokenizer_config:
+        model_name: "bert-base-cased"
+        path: "bert-base-cased"
+        max_length: 128
+        output_keys: ["input_ids", "attention_mask"]
+        kwargs:
+          add_special_tokens: true
+          padding: "max_length"
+          truncation: true
+      kwargs:
+        num_workers: 8 # Number of workers for data loader
+    load_data:
+      module: "tmlc.components.load_data"
+      func: "load_data"
+      kwargs:
+        file_path: "data/toxic_multi_class.csv" # File path for input data
+    process_data:
+      module: "tmlc.components.process_data"
+      func: "process_data"
+      kwargs:
+        text_column: "comment_text" # Column name for input text
+        labels_columns: ["toxic"] # List of column names for label(s)
+    split:
+      module: "tmlc.components.split_data"
+      func: "split_data"
+      kwargs:
+        train_ratio: 0.8 # Train split
+        val_ratio: 0.1 # Validation split
+        test_ratio: 0.1 # Test split
+        random_state: 42 # Random seed for splitting data
+        labels_columns: ["toxic"] # List of column names for label(s)
