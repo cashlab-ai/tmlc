@@ -18,6 +18,8 @@ jobs:
         run: pip install poetry
       - name: Install requirements
         run: poetry install
+      - name: Install docs
+        run: poetry run pip install -r docs/requirements.txt
       - name: Build docs
         run: poetry run mkdocs build
       - name: Publish docs
