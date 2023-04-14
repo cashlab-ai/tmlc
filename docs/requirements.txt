@@ -14,4 +14,5 @@ mkdocs-literate-nav
 mkdocs-section-index
 mkdocs-include-markdown-plugin
 mkdocstrings-python
+mkdocstrings-python-legacy
 #pyreverse
