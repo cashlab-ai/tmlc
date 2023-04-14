@@ -4,7 +4,6 @@ theme:
   palette:
     primary: indigo
     accent: pink
-
 plugins:
   - search
   - gen-files:
