@@ -1,0 +1,24 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python environment
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install Poetry
+        uses: 'poetry/poetry-action@v2'
+      - name: Install requirements
+        run: poetry install
+      - name: Build docs
+        run: poetry run mkdocs build
+      - name: Publish docs
+        run: poetry run mkdocs gh-deploy
