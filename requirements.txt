@@ -1,0 +1,17 @@
+mkdocs
+mkdocs-material
+mkdocstrings
+mknotebooks
+mkdocs-jupyter
+mkdocs-coverage
+mkdocs-awesome-pages-plugin
+mkdocs-minify-plugin
+mkdocs-git-revision-date-localized-plugin
+mkdocs-autolinks-plugin
+mkdocs-mermaid2-plugin
+mkdocs-gen-files
+mkdocs-literate-nav
+mkdocs-section-index
+mkdocs-include-markdown-plugin
+mkdocstrings-python
+#pyreverse

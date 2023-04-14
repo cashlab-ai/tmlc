@@ -1,0 +1,2468 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../loss/">
+      
+      
+        <link rel="next" href="../predictions/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+    
+    
+      
+        <title>metrics - TMLC</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ded33207.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="pink">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tmlc.components.metrics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="TMLC" class="md-header__button md-logo" aria-label="TMLC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TMLC
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              metrics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="TMLC" class="md-nav__button md-logo" aria-label="TMLC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    TMLC
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quickstart/" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../app/">app</a>
+          
+            <label for="__nav_4_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          app
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../app/app/" class="md-nav__link">
+        app
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../app/schemas/" class="md-nav__link">
+        schemas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">components</a>
+          
+            <label for="__nav_4_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          components
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../calculate_best_thresholds/" class="md-nav__link">
+        calculate_best_thresholds
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get_data/" class="md-nav__link">
+        get_data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../load_data/" class="md-nav__link">
+        load_data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loss/" class="md-nav__link">
+        loss
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          metrics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        metrics
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tmlc.components.metrics" class="md-nav__link">
+    tmlc.components.metrics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.bootstrap_rates" class="md-nav__link">
+    bootstrap_rates()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.calculate_metrics" class="md-nav__link">
+    calculate_metrics()
+  </a>
+  
+    <nav class="md-nav" aria-label="calculate_metrics()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.calculate_metrics--create-a-tensor-of-true-labels-and-predicted-probabilities" class="md-nav__link">
+    Create a tensor of true labels and predicted probabilities
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.calculate_metrics--calculate-the-evaluation-metrics" class="md-nav__link">
+    Calculate the evaluation metrics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.calculate_metrics--print-the-evaluation-metrics" class="md-nav__link">
+    Print the evaluation metrics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.calculate_rates" class="md-nav__link">
+    calculate_rates()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.evaluate_rates" class="md-nav__link">
+    evaluate_rates()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../predictions/" class="md-nav__link">
+        predictions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process_data/" class="md-nav__link">
+        process_data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../split_data/" class="md-nav__link">
+        split_data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../configclasses/">configclasses</a>
+          
+            <label for="__nav_4_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          configclasses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configclasses/data_module_config/" class="md-nav__link">
+        data_module_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configclasses/dataset_config/" class="md-nav__link">
+        dataset_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configclasses/lightning_module_config/" class="md-nav__link">
+        lightning_module_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configclasses/mlflow_config/" class="md-nav__link">
+        mlflow_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configclasses/model_config/" class="md-nav__link">
+        model_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configclasses/partial_function_config/" class="md-nav__link">
+        partial_function_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configclasses/pretrained_config/" class="md-nav__link">
+        pretrained_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configclasses/tokenizer_config/" class="md-nav__link">
+        tokenizer_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configclasses/trainer_config/" class="md-nav__link">
+        trainer_config
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../dataclasses/">dataclasses</a>
+          
+            <label for="__nav_4_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          dataclasses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataclasses/datamodule/" class="md-nav__link">
+        datamodule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataclasses/dataset/" class="md-nav__link">
+        dataset
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dataclasses/message/" class="md-nav__link">
+        message
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../eda/">eda</a>
+          
+            <label for="__nav_4_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          eda
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eda/configclasses/" class="md-nav__link">
+        configclasses
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eda/datapreparation/" class="md-nav__link">
+        datapreparation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eda/pretraining/" class="md-nav__link">
+        pretraining
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eda/render/" class="md-nav__link">
+        render
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eda/visualization/" class="md-nav__link">
+        visualization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exceptions/" class="md-nav__link">
+        exceptions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../scripts/">scripts</a>
+          
+            <label for="__nav_4_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          scripts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripts/eda/" class="md-nav__link">
+        eda
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripts/score/" class="md-nav__link">
+        score
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripts/train/" class="md-nav__link">
+        train
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripts/utils/" class="md-nav__link">
+        utils
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Validation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Validation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../validation/model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../validation/eda/" class="md-nav__link">
+        EDA
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/dataset_requirements/" class="md-nav__link">
+        Data Requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/eda_validation/" class="md-nav__link">
+        Build EDA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/model_training/" class="md-nav__link">
+        Model Training
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/model_evaluation/" class="md-nav__link">
+        Model Evaluation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/model_wrapper/" class="md-nav__link">
+        Model Wrapper
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tmlc.components.metrics" class="md-nav__link">
+    tmlc.components.metrics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.bootstrap_rates" class="md-nav__link">
+    bootstrap_rates()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.calculate_metrics" class="md-nav__link">
+    calculate_metrics()
+  </a>
+  
+    <nav class="md-nav" aria-label="calculate_metrics()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.calculate_metrics--create-a-tensor-of-true-labels-and-predicted-probabilities" class="md-nav__link">
+    Create a tensor of true labels and predicted probabilities
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.calculate_metrics--calculate-the-evaluation-metrics" class="md-nav__link">
+    Calculate the evaluation metrics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.calculate_metrics--print-the-evaluation-metrics" class="md-nav__link">
+    Print the evaluation metrics
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.calculate_rates" class="md-nav__link">
+    calculate_rates()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmlc.components.metrics.evaluate_rates" class="md-nav__link">
+    evaluate_rates()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>metrics</h1>
+
+<div class="doc doc-object doc-module">
+
+
+<a id="tmlc.components.metrics"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="tmlc.components.metrics.bootstrap_rates" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">bootstrap_rates</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">n_iterations</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">percentile</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Estimate average and error bars for true positive rate (tpr), false positive rate (fpr), false
+negative rate (fnr), and true negative rate (tnr) using bootstrapping.</p>
+<p>Bootstrapping is a resampling technique that estimates the sampling distribution of an estimator
+by generating multiple "bootstrap samples" from the original data. In this function, we generate
+multiple bootstrap samples of the true labels and predicted labels, and then calculate the tpr,
+fpr, fnr, and tnr for each sample. Finally, we estimate the average and error bars for each rate
+using the bootstrap samples.</p>
+<p>To generate a bootstrap sample, we randomly sample the original data with replacement, resulting
+in a new dataset of the same size as the original, but with some samples potentially repeated and
+others left out. By repeatedly generating these bootstrap samples, we can estimate the distribution
+of the estimator, and use this distribution to estimate the average and error bars.</p>
+<p>The benefit of bootstrapping is that it allows us to estimate the distribution of an estimator without
+making assumptions about the underlying distribution of the data. This can be particularly useful in
+cases where the sample size is small or the underlying distribution is unknown.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>y_true</code></td>
+          <td>
+                <code>array-like</code>
+          </td>
+          <td><p>True labels, of shape (n_samples,)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y_pred</code></td>
+          <td>
+                <code>array-like</code>
+          </td>
+          <td><p>Predicted labels, of shape (n_samples,)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>n_iterations</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Number of bootstrap iterations.</p></td>
+          <td>
+                <code>1000</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>percentile</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>Percentile for error bar calculation.</p></td>
+          <td>
+                <code>2.5</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>Dict[str, Dict[str, float]]: A dictionary containing the average values and error bars</p></td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td><p>for tpr, fpr, fnr, tnr, n_samples.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>ValueError</code>
+          </td>
+          <td><p>If percentile is outside the range of (0, 100).</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="example">
+  <summary>Example</summary>
+  <p>For single-label classification:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import numpy as np
+np.random.seed(123)
+y_true = np.random.randint(0, 2, size=100)
+y_pred = np.random.rand(100)
+results = bootstrap_rates(y_true, y_pred)
+set(results.keys())
+{'tpr', 'fpr', 'fnr', 'tnr'}
+results['tpr'].keys()
+dict_keys(['avg', 'error_bars'])
+results['tpr']['avg']
+0.4734470264099684
+results['tpr']['error_bars']
+(0.36764705882352944, 0.5789473684210527)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>For multi-label classification:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import numpy as np
+np.random.seed(123)
+y_true = np.random.randint(0, 2, size=(100, 3))
+y_pred = np.random.rand(100, 3)
+results = bootstrap_rates(y_true, y_pred)
+set(results.keys())
+{'tpr', 'fpr', 'fnr', 'tnr'}
+results['tpr'].keys()
+dict_keys(['avg', 'error_bars'])
+results['tpr']['avg']
+array([0.47186573, 0.42935668, 0.44356321])
+results['tpr']['error_bars']
+(array([0.3761165 , 0.31934306, 0.33100715]),
+ array([0.57416268, 0.5308642 , 0.56390977]))</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>tmlc/components/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">bootstrap_rates</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">n_iterations</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">percentile</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Estimate average and error bars for true positive rate (tpr), false positive rate (fpr), false</span>
+<span class="sd">    negative rate (fnr), and true negative rate (tnr) using bootstrapping.</span>
+
+<span class="sd">    Bootstrapping is a resampling technique that estimates the sampling distribution of an estimator</span>
+<span class="sd">    by generating multiple &quot;bootstrap samples&quot; from the original data. In this function, we generate</span>
+<span class="sd">    multiple bootstrap samples of the true labels and predicted labels, and then calculate the tpr,</span>
+<span class="sd">    fpr, fnr, and tnr for each sample. Finally, we estimate the average and error bars for each rate</span>
+<span class="sd">    using the bootstrap samples.</span>
+
+<span class="sd">    To generate a bootstrap sample, we randomly sample the original data with replacement, resulting</span>
+<span class="sd">    in a new dataset of the same size as the original, but with some samples potentially repeated and</span>
+<span class="sd">    others left out. By repeatedly generating these bootstrap samples, we can estimate the distribution</span>
+<span class="sd">    of the estimator, and use this distribution to estimate the average and error bars.</span>
+
+<span class="sd">    The benefit of bootstrapping is that it allows us to estimate the distribution of an estimator without</span>
+<span class="sd">    making assumptions about the underlying distribution of the data. This can be particularly useful in</span>
+<span class="sd">    cases where the sample size is small or the underlying distribution is unknown.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (array-like): True labels, of shape (n_samples,)</span>
+<span class="sd">        y_pred (array-like): Predicted labels, of shape (n_samples,)</span>
+<span class="sd">        n_iterations (int): Number of bootstrap iterations.</span>
+<span class="sd">        percentile (float): Percentile for error bar calculation.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, Dict[str, float]]: A dictionary containing the average values and error bars</span>
+<span class="sd">        for tpr, fpr, fnr, tnr, n_samples.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If percentile is outside the range of (0, 100).</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        For single-label classification:</span>
+
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; np.random.seed(123)</span>
+<span class="sd">        &gt;&gt;&gt; y_true = np.random.randint(0, 2, size=100)</span>
+<span class="sd">        &gt;&gt;&gt; y_pred = np.random.rand(100)</span>
+<span class="sd">        &gt;&gt;&gt; results = bootstrap_rates(y_true, y_pred)</span>
+<span class="sd">        &gt;&gt;&gt; set(results.keys())</span>
+<span class="sd">        {&#39;tpr&#39;, &#39;fpr&#39;, &#39;fnr&#39;, &#39;tnr&#39;}</span>
+<span class="sd">        &gt;&gt;&gt; results[&#39;tpr&#39;].keys()</span>
+<span class="sd">        dict_keys([&#39;avg&#39;, &#39;error_bars&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; results[&#39;tpr&#39;][&#39;avg&#39;]</span>
+<span class="sd">        0.4734470264099684</span>
+<span class="sd">        &gt;&gt;&gt; results[&#39;tpr&#39;][&#39;error_bars&#39;]</span>
+<span class="sd">        (0.36764705882352944, 0.5789473684210527)</span>
+
+<span class="sd">        For multi-label classification:</span>
+
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; np.random.seed(123)</span>
+<span class="sd">        &gt;&gt;&gt; y_true = np.random.randint(0, 2, size=(100, 3))</span>
+<span class="sd">        &gt;&gt;&gt; y_pred = np.random.rand(100, 3)</span>
+<span class="sd">        &gt;&gt;&gt; results = bootstrap_rates(y_true, y_pred)</span>
+<span class="sd">        &gt;&gt;&gt; set(results.keys())</span>
+<span class="sd">        {&#39;tpr&#39;, &#39;fpr&#39;, &#39;fnr&#39;, &#39;tnr&#39;}</span>
+<span class="sd">        &gt;&gt;&gt; results[&#39;tpr&#39;].keys()</span>
+<span class="sd">        dict_keys([&#39;avg&#39;, &#39;error_bars&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; results[&#39;tpr&#39;][&#39;avg&#39;]</span>
+<span class="sd">        array([0.47186573, 0.42935668, 0.44356321])</span>
+<span class="sd">        &gt;&gt;&gt; results[&#39;tpr&#39;][&#39;error_bars&#39;]</span>
+<span class="sd">        (array([0.3761165 , 0.31934306, 0.33100715]),</span>
+<span class="sd">         array([0.57416268, 0.5308642 , 0.56390977]))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Raise an error if percentile is outside the range of (0, 100).</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">percentile</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">percentile</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Percentile needs to be between (0, 100); it is </span><span class="si">{</span><span class="n">percentile</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Set the number of samples to the length of y_true.</span>
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+
+    <span class="c1"># Initialize a dictionary to store errors for each rate.</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;tpr&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;fpr&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;fnr&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;tnr&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+
+    <span class="c1"># Iterate over the number of bootstrap iterations.</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iterations</span><span class="p">):</span>
+
+        <span class="c1"># Generate bootstrap samples of true labels and predicted labels.</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">y_true_bootstrap</span> <span class="o">=</span> <span class="n">y_true</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">y_pred_bootstrap</span> <span class="o">=</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+        <span class="c1"># Evaluate rates for the bootstrap sample.</span>
+        <span class="n">eval_bootstrap</span> <span class="o">=</span> <span class="n">evaluate_rates</span><span class="p">(</span><span class="n">y_true_bootstrap</span><span class="p">,</span> <span class="n">y_pred_bootstrap</span><span class="p">)</span>
+
+        <span class="c1"># Append errors to the errors dictionary.</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">errors</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">errors</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">eval_bootstrap</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+
+    <span class="c1"># Initialize a dictionary to store the output.</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Calculate the average and error bars for each rate.</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">errors</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">output</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">_avg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">errors</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+        <span class="n">output</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">_error_bars_lower&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">errors</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">percentile</span><span class="p">)</span>
+        <span class="n">output</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">_error_bars_upper&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">errors</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">percentile</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;number_samples&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="tmlc.components.metrics.calculate_metrics" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">calculate_metrics</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">n_iterations</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">percentile</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Calculates evaluation metrics given the true labels and predicted probabilities.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>labels</code></td>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>True labels, of shape (n_samples, num_classes).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>predictions</code></td>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>Predicted probabilities, of shape (n_samples, num_classes).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>element</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Name of the element to include in metric names, such as "train" or "test".</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>n_iterations</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Number of bootstrap iterations to use for calculating rates.
+Defaults to 1000.</p></td>
+          <td>
+                <code>1000</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>percentile</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>Percentile for the bootstrap confidence interval. Defaults to 2.5.</p></td>
+          <td>
+                <code>2.5</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Dict">Dict</span>[str, <span title="typing.Any">Any</span>]</code>
+          </td>
+          <td><p>Dict[str, Any]: A dictionary containing the following evaluation metrics:
+- element_f1 (float): Macro-average F1-score.
+- element_precision (float): Macro-average precision score.
+- element_recall (float): Macro-average recall score.
+- element_tpr (float): True positive rate.
+- element_fpr (float): False positive rate.
+- element_fnr (float): False negative rate.
+- element_tnr (float): True negative rate.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="example">
+  <summary>Example</summary>
+  <p>Here's an example of how to use the <code>calculate_metrics</code> function:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import torch
+from sklearn.metrics import f1_score, precision_score, recall_score
+from tmlc.metrics import calculate_metrics</p>
+<h3 id="tmlc.components.metrics.calculate_metrics--create-a-tensor-of-true-labels-and-predicted-probabilities">Create a tensor of true labels and predicted probabilities</h3>
+<p>true_labels = torch.tensor([[1, 0, 1], [0, 1, 0], [1, 1, 1], [0, 1, 1]])
+predicted_probs = torch.tensor(
+... [[0.8, 0.1, 0.9], [0.3, 0.7, 0.4], [0.7, 0.6, 0.8], [0.2, 0.9, 0.7]])</p>
+<h3 id="tmlc.components.metrics.calculate_metrics--calculate-the-evaluation-metrics">Calculate the evaluation metrics</h3>
+<p>metrics = calculate_metrics(
+... true_labels, predicted_probs, element="test", n_iterations=100, percentile=5.0)</p>
+<h3 id="tmlc.components.metrics.calculate_metrics--print-the-evaluation-metrics">Print the evaluation metrics</h3>
+<p>print(metrics)
+{'test_f1': 0.717948717948718,
+'test_precision': 0.6666666666666666,
+'test_recall': 0.8,
+'test_tpr': 0.8,
+'test_fpr': 0.16666666666666666,
+'test_fnr': 0.2,
+'test_tnr': 0.8333333333333334}</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>tmlc/components/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">calculate_metrics</span><span class="p">(</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">predictions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">element</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">n_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="n">percentile</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates evaluation metrics given the true labels and predicted probabilities.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        labels (torch.Tensor): True labels, of shape (n_samples, num_classes).</span>
+<span class="sd">        predictions (torch.Tensor): Predicted probabilities, of shape (n_samples, num_classes).</span>
+<span class="sd">        element (str): Name of the element to include in metric names, such as &quot;train&quot; or &quot;test&quot;.</span>
+<span class="sd">        n_iterations (int, optional): Number of bootstrap iterations to use for calculating rates.</span>
+<span class="sd">            Defaults to 1000.</span>
+<span class="sd">        percentile (float, optional): Percentile for the bootstrap confidence interval. Defaults to 2.5.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, Any]: A dictionary containing the following evaluation metrics:</span>
+<span class="sd">            - element_f1 (float): Macro-average F1-score.</span>
+<span class="sd">            - element_precision (float): Macro-average precision score.</span>
+<span class="sd">            - element_recall (float): Macro-average recall score.</span>
+<span class="sd">            - element_tpr (float): True positive rate.</span>
+<span class="sd">            - element_fpr (float): False positive rate.</span>
+<span class="sd">            - element_fnr (float): False negative rate.</span>
+<span class="sd">            - element_tnr (float): True negative rate.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Here&#39;s an example of how to use the `calculate_metrics` function:</span>
+<span class="sd">        &gt;&gt;&gt; import torch</span>
+<span class="sd">        &gt;&gt;&gt; from sklearn.metrics import f1_score, precision_score, recall_score</span>
+<span class="sd">        &gt;&gt;&gt; from tmlc.metrics import calculate_metrics</span>
+
+<span class="sd">        &gt;&gt;&gt; # Create a tensor of true labels and predicted probabilities</span>
+<span class="sd">        &gt;&gt;&gt; true_labels = torch.tensor([[1, 0, 1], [0, 1, 0], [1, 1, 1], [0, 1, 1]])</span>
+<span class="sd">        &gt;&gt;&gt; predicted_probs = torch.tensor(</span>
+<span class="sd">        ... [[0.8, 0.1, 0.9], [0.3, 0.7, 0.4], [0.7, 0.6, 0.8], [0.2, 0.9, 0.7]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Calculate the evaluation metrics</span>
+<span class="sd">        &gt;&gt;&gt; metrics = calculate_metrics(</span>
+<span class="sd">        ... true_labels, predicted_probs, element=&quot;test&quot;, n_iterations=100, percentile=5.0)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Print the evaluation metrics</span>
+<span class="sd">        &gt;&gt;&gt; print(metrics)</span>
+<span class="sd">        {&#39;test_f1&#39;: 0.717948717948718,</span>
+<span class="sd">        &#39;test_precision&#39;: 0.6666666666666666,</span>
+<span class="sd">        &#39;test_recall&#39;: 0.8,</span>
+<span class="sd">        &#39;test_tpr&#39;: 0.8,</span>
+<span class="sd">        &#39;test_fpr&#39;: 0.16666666666666666,</span>
+<span class="sd">        &#39;test_fnr&#39;: 0.2,</span>
+<span class="sd">        &#39;test_tnr&#39;: 0.8333333333333334}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Convert input tensors to numpy arrays</span>
+    <span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">predictions</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="c1"># Calculate macro-average F1-score, precision, recall, and accuracy</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">_f1&quot;</span><span class="p">:</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">_precision&quot;</span><span class="p">:</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">_recall&quot;</span><span class="p">:</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Calculate bootstrap estimates for true positive rate (tpr), false positive rate (fpr),</span>
+    <span class="c1"># false negative rate (fnr), and true negative rate (tnr) using the calculate_rates function</span>
+    <span class="n">rates</span> <span class="o">=</span> <span class="n">bootstrap_rates</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">n_iterations</span><span class="o">=</span><span class="n">n_iterations</span><span class="p">,</span> <span class="n">percentile</span><span class="o">=</span><span class="n">percentile</span><span class="p">)</span>
+
+    <span class="c1"># Add bootstrap estimates to the metrics dictionary</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">rates</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">metrics</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+
+    <span class="c1"># Return the metrics dictionary</span>
+    <span class="k">return</span> <span class="n">metrics</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="tmlc.components.metrics.calculate_rates" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">calculate_rates</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Calculate true positive rate (tpr), false positive rate (fpr), false negative rate (fnr), and
+true negative rate (tnr) given a confusion matrix.</p>
+<p>A confusion matrix is a table used to evaluate the performance of a classification algorithm.
+The rows of the matrix represent the true labels, while the columns represent the predicted labels.
+Each cell of the matrix represents the number of samples that fall into a particular category.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>cm</code></td>
+          <td>
+                <code>array-like</code>
+          </td>
+          <td><p>Confusion matrix, of shape (num_classes, num_classes).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>Tuple[array-like]: A tuple containing the tpr, fpr, fnr, and tnr.</p></td>
+        </tr>
+    </tbody>
+  </table>
+      <p>The tpr, fpr, fnr, and tnr can be calculated from the confusion matrix as follows:</p>
+<p>tpr = tp / (tp + fn)
+fpr = fp / (fp + tn)
+fnr = fn / (fn + tp)
+tnr = tn / (tn + fp)</p>
+<p>where tp, fn, fp, and tn are the numbers of true positives, false negatives, false positives,
+and true negatives, respectively.</p>
+
+<details class="example">
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>import numpy as np
+cm = np.array([[50, 10], [20, 70]])
+tpr, fpr, fnr, tnr = calculate_rates(cm)
+tpr
+array([0.83333333, 0.77777778])
+fpr
+array([0.22222222, 0.16666667])
+fnr
+array([0.16666667, 0.22222222])
+tnr
+array([0.77777778, 0.83333333])</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>tmlc/components/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">calculate_rates</span><span class="p">(</span><span class="n">cm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate true positive rate (tpr), false positive rate (fpr), false negative rate (fnr), and</span>
+<span class="sd">    true negative rate (tnr) given a confusion matrix.</span>
+
+<span class="sd">    A confusion matrix is a table used to evaluate the performance of a classification algorithm.</span>
+<span class="sd">    The rows of the matrix represent the true labels, while the columns represent the predicted labels.</span>
+<span class="sd">    Each cell of the matrix represents the number of samples that fall into a particular category.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cm (array-like): Confusion matrix, of shape (num_classes, num_classes).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[array-like]: A tuple containing the tpr, fpr, fnr, and tnr.</span>
+
+<span class="sd">    The tpr, fpr, fnr, and tnr can be calculated from the confusion matrix as follows:</span>
+
+<span class="sd">    tpr = tp / (tp + fn)</span>
+<span class="sd">    fpr = fp / (fp + tn)</span>
+<span class="sd">    fnr = fn / (fn + tp)</span>
+<span class="sd">    tnr = tn / (tn + fp)</span>
+
+<span class="sd">    where tp, fn, fp, and tn are the numbers of true positives, false negatives, false positives,</span>
+<span class="sd">    and true negatives, respectively.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; cm = np.array([[50, 10], [20, 70]])</span>
+<span class="sd">        &gt;&gt;&gt; tpr, fpr, fnr, tnr = calculate_rates(cm)</span>
+<span class="sd">        &gt;&gt;&gt; tpr</span>
+<span class="sd">        array([0.83333333, 0.77777778])</span>
+<span class="sd">        &gt;&gt;&gt; fpr</span>
+<span class="sd">        array([0.22222222, 0.16666667])</span>
+<span class="sd">        &gt;&gt;&gt; fnr</span>
+<span class="sd">        array([0.16666667, 0.22222222])</span>
+<span class="sd">        &gt;&gt;&gt; tnr</span>
+<span class="sd">        array([0.77777778, 0.83333333])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">eps</span> <span class="o">=</span> <span class="mf">0.00000001</span>
+
+    <span class="c1"># cm is the confusion matrix</span>
+    <span class="n">num_classes</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Initialize arrays to store true positives, false negatives, false positives,</span>
+    <span class="c1"># and true negatives for each class</span>
+    <span class="n">tp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_classes</span><span class="p">)</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_classes</span><span class="p">)</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_classes</span><span class="p">)</span>
+    <span class="n">tn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_classes</span><span class="p">)</span>
+
+    <span class="c1"># Calculate true positives, false negatives, false positives, and true negatives</span>
+    <span class="c1"># for each class</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_classes</span><span class="p">):</span>
+        <span class="n">tp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">fn</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span> <span class="o">-</span> <span class="n">tp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">fp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cm</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">tp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">tn</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span> <span class="o">-</span> <span class="n">tp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">fn</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">fp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="c1"># Calculate true positive rate, false positive rate, false negative rate, and true</span>
+    <span class="c1"># negative rate for each class</span>
+    <span class="n">tpr</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span>
+    <span class="n">fpr</span> <span class="o">=</span> <span class="n">fp</span> <span class="o">/</span> <span class="p">(</span><span class="n">fp</span> <span class="o">+</span> <span class="n">tn</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span>
+    <span class="n">fnr</span> <span class="o">=</span> <span class="n">fn</span> <span class="o">/</span> <span class="p">(</span><span class="n">fn</span> <span class="o">+</span> <span class="n">tp</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span>
+    <span class="n">tnr</span> <span class="o">=</span> <span class="n">tn</span> <span class="o">/</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fp</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span>
+
+    <span class="c1"># Return arrays containing tpr, fpr, fnr, and tnr for each class</span>
+    <span class="k">return</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">fpr</span><span class="p">,</span> <span class="n">fnr</span><span class="p">,</span> <span class="n">tnr</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="tmlc.components.metrics.evaluate_rates" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">evaluate_rates</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Calculate true positive rate (tpr), false positive rate (fpr), false negative rate (fnr), and
+true negative rate (tnr) given the true labels and predicted labels.</p>
+<p>The function first calculates the confusion matrix using scikit-learn's <code>confusion_matrix</code> function.
+It then uses the <code>calculate_rates</code> function to calculate the tpr, fpr, fnr, and tnr. The output is
+returned in a dictionary containing the confusion matrix and each of the rates.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>y_true</code></td>
+          <td>
+                <code>array-like</code>
+          </td>
+          <td><p>True labels, of shape (n_samples,).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y_pred</code></td>
+          <td>
+                <code>array-like</code>
+          </td>
+          <td><p>Predicted labels, of shape (n_samples,).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>Dict[str, array-like]: A dictionary containing the confusion matrix and each of the rates.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="example">
+  <summary>Example</summary>
+  <blockquote>
+<blockquote>
+<blockquote>
+<p>y_true = [1, 0, 1, 1, 0, 1]
+y_pred = [0, 0, 1, 1, 0, 1]
+evaluate_rates(y_true, y_pred)
+{
+    "confusion_matrix": array([[2, 1],
+                            [1, 3]]),
+    "tpr": 0.75,
+    "fpr": 0.3333333333333333,
+    "fnr": 0.25,
+    "tnr": 0.6666666666666666
+}</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>tmlc/components/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">evaluate_rates</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate true positive rate (tpr), false positive rate (fpr), false negative rate (fnr), and</span>
+<span class="sd">    true negative rate (tnr) given the true labels and predicted labels.</span>
+
+<span class="sd">    The function first calculates the confusion matrix using scikit-learn&#39;s `confusion_matrix` function.</span>
+<span class="sd">    It then uses the `calculate_rates` function to calculate the tpr, fpr, fnr, and tnr. The output is</span>
+<span class="sd">    returned in a dictionary containing the confusion matrix and each of the rates.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (array-like): True labels, of shape (n_samples,).</span>
+<span class="sd">        y_pred (array-like): Predicted labels, of shape (n_samples,).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict[str, array-like]: A dictionary containing the confusion matrix and each of the rates.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; y_true = [1, 0, 1, 1, 0, 1]</span>
+<span class="sd">        &gt;&gt;&gt; y_pred = [0, 0, 1, 1, 0, 1]</span>
+<span class="sd">        &gt;&gt;&gt; evaluate_rates(y_true, y_pred)</span>
+<span class="sd">        {</span>
+<span class="sd">            &quot;confusion_matrix&quot;: array([[2, 1],</span>
+<span class="sd">                                    [1, 3]]),</span>
+<span class="sd">            &quot;tpr&quot;: 0.75,</span>
+<span class="sd">            &quot;fpr&quot;: 0.3333333333333333,</span>
+<span class="sd">            &quot;fnr&quot;: 0.25,</span>
+<span class="sd">            &quot;tnr&quot;: 0.6666666666666666</span>
+<span class="sd">        }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">tpr</span><span class="p">,</span> <span class="n">fpr</span><span class="p">,</span> <span class="n">fnr</span><span class="p">,</span> <span class="n">tnr</span> <span class="o">=</span> <span class="n">calculate_rates</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;confusion_matrix&quot;</span><span class="p">:</span> <span class="n">cm</span><span class="p">,</span>
+        <span class="s2">&quot;tpr&quot;</span><span class="p">:</span> <span class="n">tpr</span><span class="p">,</span>
+        <span class="s2">&quot;fpr&quot;</span><span class="p">:</span> <span class="n">fpr</span><span class="p">,</span>
+        <span class="s2">&quot;fnr&quot;</span><span class="p">:</span> <span class="n">fnr</span><span class="p">,</span>
+        <span class="s2">&quot;tnr&quot;</span><span class="p">:</span> <span class="n">tnr</span><span class="p">,</span>
+    <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.51198bba.min.js"></script>
+      
+    
+  </body>
+</html>

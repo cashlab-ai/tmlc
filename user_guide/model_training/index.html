@@ -1,0 +1,1568 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../eda_validation/">
+      
+      
+        <link rel="next" href="../model_evaluation/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+    
+    
+      
+        <title>Model Training - TMLC</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ded33207.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="pink">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#model-training" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="TMLC" class="md-header__button md-logo" aria-label="TMLC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TMLC
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Model Training
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="TMLC" class="md-nav__button md-logo" aria-label="TMLC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    TMLC
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/app/">app</a>
+          
+            <label for="__nav_4_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          app
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/app/app/" class="md-nav__link">
+        app
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/app/schemas/" class="md-nav__link">
+        schemas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/components/">components</a>
+          
+            <label for="__nav_4_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          components
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/calculate_best_thresholds/" class="md-nav__link">
+        calculate_best_thresholds
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/get_data/" class="md-nav__link">
+        get_data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/load_data/" class="md-nav__link">
+        load_data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/loss/" class="md-nav__link">
+        loss
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/metrics/" class="md-nav__link">
+        metrics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/predictions/" class="md-nav__link">
+        predictions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/process_data/" class="md-nav__link">
+        process_data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/split_data/" class="md-nav__link">
+        split_data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/configclasses/">configclasses</a>
+          
+            <label for="__nav_4_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          configclasses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/data_module_config/" class="md-nav__link">
+        data_module_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/dataset_config/" class="md-nav__link">
+        dataset_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/lightning_module_config/" class="md-nav__link">
+        lightning_module_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/mlflow_config/" class="md-nav__link">
+        mlflow_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/model_config/" class="md-nav__link">
+        model_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/partial_function_config/" class="md-nav__link">
+        partial_function_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/pretrained_config/" class="md-nav__link">
+        pretrained_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/tokenizer_config/" class="md-nav__link">
+        tokenizer_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/trainer_config/" class="md-nav__link">
+        trainer_config
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/dataclasses/">dataclasses</a>
+          
+            <label for="__nav_4_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          dataclasses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dataclasses/datamodule/" class="md-nav__link">
+        datamodule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dataclasses/dataset/" class="md-nav__link">
+        dataset
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dataclasses/message/" class="md-nav__link">
+        message
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/eda/">eda</a>
+          
+            <label for="__nav_4_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          eda
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eda/configclasses/" class="md-nav__link">
+        configclasses
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eda/datapreparation/" class="md-nav__link">
+        datapreparation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eda/pretraining/" class="md-nav__link">
+        pretraining
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eda/render/" class="md-nav__link">
+        render
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eda/visualization/" class="md-nav__link">
+        visualization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/exceptions/" class="md-nav__link">
+        exceptions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/scripts/">scripts</a>
+          
+            <label for="__nav_4_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          scripts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/scripts/eda/" class="md-nav__link">
+        eda
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/scripts/score/" class="md-nav__link">
+        score
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/scripts/train/" class="md-nav__link">
+        train
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/scripts/utils/" class="md-nav__link">
+        utils
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Validation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Validation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/eda/" class="md-nav__link">
+        EDA
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dataset_requirements/" class="md-nav__link">
+        Data Requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eda_validation/" class="md-nav__link">
+        Build EDA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Model Training
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Model Training
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#training-script" class="md-nav__link">
+    Training Script
+  </a>
+  
+    <nav class="md-nav" aria-label="Training Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-the-training-script" class="md-nav__link">
+    Running the Training Script
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-configuration" class="md-nav__link">
+    Example Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-explanation" class="md-nav__link">
+    Configuration Explanation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-the-model" class="md-nav__link">
+    Saving the Model
+  </a>
+  
+    <nav class="md-nav" aria-label="Saving the Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#training-and-mlflow-registry" class="md-nav__link">
+    Training and mlflow registry
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_evaluation/" class="md-nav__link">
+        Model Evaluation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_wrapper/" class="md-nav__link">
+        Model Wrapper
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#training-script" class="md-nav__link">
+    Training Script
+  </a>
+  
+    <nav class="md-nav" aria-label="Training Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-the-training-script" class="md-nav__link">
+    Running the Training Script
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-configuration" class="md-nav__link">
+    Example Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-explanation" class="md-nav__link">
+    Configuration Explanation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-the-model" class="md-nav__link">
+    Saving the Model
+  </a>
+  
+    <nav class="md-nav" aria-label="Saving the Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#training-and-mlflow-registry" class="md-nav__link">
+    Training and mlflow registry
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="model-training">Model Training</h1>
+<p>This guide explains how to train the <code>TextMultiLabelClassificationModel</code> using the PyTorch Lightning framework. The model is designed for multi-label text classification tasks, and it leverages the Transformers library for the underlying backbone.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before you start, make sure you have installed the required libraries:</p>
+<pre><code class="language-bash">poetry install
+</code></pre>
+<h2 id="training-script">Training Script</h2>
+<p>The model training script is responsible for loading the model, data module, and trainer configuration from a YAML file or a checkpoint file. It sets up the trainer with the specified configuration and trains the model using the given dataset.</p>
+<p>The training script also logs important metrics during training and testing using MLflow. After training, the model is registered, and its URI is printed for easy access.</p>
+<h3 id="running-the-training-script">Running the Training Script</h3>
+<p>To run the training script, you'll need to provide a YAML configuration file that includes the necessary hyperparameters for the model, data module, and trainer. You can also provide a checkpoint file to start training from an existing checkpoint.</p>
+<p>To execute the training script, run the following command in your terminal or command prompt:</p>
+<pre><code class="language-bash">python tmlc/scripts/train.py --file-path /path/to/config_or_checkpoint.yaml [--check-point True|False]
+</code></pre>
+<p>Replace <code>filename: checkpoint  # file name for the checkpoint</code> in your YAML configuration file or checkpoint file. If you're starting from an existing checkpoint, set the --check-point flag to True.</p>
+<h2 id="example-configuration">Example Configuration</h2>
+<p>Here's an example configuration file for the LightningModuleConfig. This file includes settings for the trainer, model, data module, loggers, and callbacks.</p>
+<pre><code class="language-yaml"># Example configuration file for LightningModuleConfig
+trainer_config:
+  seed: 42  # seed for reproducibility
+  kwargs:
+      max_epochs: 1  # maximum number of epochs to train for
+      accelerator: cpu  # use CPU for training
+      log_every_n_steps: 5  # log after every 5 steps
+      enable_progress_bar: True  # show progress bar during training
+  mlflow_config:
+    artifact_folder: model/
+    model_path: model/mode.onnx
+    tokenizer_path: model/tokenizer
+    description: &quot;This is a description&quot;
+    tags:
+      one: 1
+
+  callbacks:
+      - module: &quot;pytorch_lightning.callbacks.early_stopping&quot;  # early stopping callback to stop training if val_loss doesn't improve
+        func: &quot;EarlyStopping&quot;
+        kwargs:
+            monitor: val_loss  # monitor validation loss
+            patience: 5  # number of epochs with no improvement after which training will be stopped
+            mode: min  # minimize the monitored quantity
+      - module: &quot;pytorch_lightning.callbacks.model_checkpoint&quot;  # model checkpoint callback to save the best model
+        func: &quot;ModelCheckpoint&quot;
+        kwargs:
+            dirpath: 'dirpath'  # directory to save the checkpoint
+            filename: checkpoint  # file name for the checkpoint
+            monitor: val_loss  # monitor validation loss
+            mode: min  # minimize the monitored quantity
+            save_top_k: 1  # save the top 1 models
+            save_last: True  # save the last checkpoint
+
+  loggers:
+      - module: &quot;lightning.pytorch.loggers&quot;  # logger to log the experiment to MLFlow
+        func: &quot;MLFlowLogger&quot;
+        kwargs:
+          experiment_name: experiment_name  # name of the experiment
+          tracking_uri: &quot;mlruns&quot;  # URI of the MLFlow server
+      - module: &quot;lightning.pytorch.loggers&quot;  # logger to log the experiment to TensorBoard
+        func: &quot;TensorBoardLogger&quot;
+        kwargs:
+          save_dir: tensorboard_logdir  # directory to save the logs
+          name: run_name  # name of the run
+
+  lightning_module_config:
+    model_name: TMLC  # name of the model
+    model:
+      pretrained_model:
+        path: bert-base-cased
+      dropout_prob: 0.1  # dropout probability
+      hidden_size: 768  # size of the hidden layer
+      num_classes: 1  # number of classes
+      calculate_predictions:
+        module: &quot;tmlc.components.predictions&quot;  # predictions module
+        func: &quot;calculate_predictions&quot;  # calculate predictions function
+    calculate_metrics:
+        module: &quot;tmlc.components.metrics&quot;  # metrics module
+        func: &quot;calculate_metrics&quot;  # calculate metrics function
+        kwargs:
+          n_iterations: 1000 # Number of iterations for the bootstrap error calculation
+          percentile: 2.5 # Lower percentile to calculate symetric error bars in the bootstrap error calculation
+    optimizer:
+        module: &quot;torch.optim&quot;  # optimizer module
+        func: &quot;AdamW&quot;  # optimizer function
+        kwargs:
+          lr: 0.000001  # learning rate
+    define_loss:
+        module: tmlc.components.loss  # loss module
+        func: bceloss_inverse_frequency_weighted  # loss function
+    predict:
+      module: &quot;torch&quot;  # module to use for prediction
+      func: &quot;sigmoid&quot;  # function to use for prediction
+    calculate_best_thresholds:
+      module: &quot;tmlc.components.calculate_best_thresholds&quot;  # module to use for calculating best thresholds
+      func: &quot;calculate_best_thresholds&quot;  # function to use for calculating best thresholds
+      kwargs:
+          vmin: 0.1  # minimum value for the threshold
+          vmax: 0.9  # maximum value for the threshold
+          step: 0.05  # step size for the threshold
+
+  data_module_config:
+    state_file: &quot;state.bin&quot; # Location of state file
+    dataset:
+      batch_size: 5 # Batch size for data loader
+      tokenizer_config:
+        model_name: &quot;bert-base-cased&quot;
+        path: &quot;bert-base-cased&quot;
+        max_length: 128
+        output_keys: [&quot;input_ids&quot;, &quot;attention_mask&quot;]
+        kwargs:
+          add_special_tokens: true
+          padding: &quot;max_length&quot;
+          truncation: true
+      kwargs:
+        num_workers: 8 # Number of workers for data loader
+    load_data:
+      module: &quot;tmlc.components.load_data&quot;
+      func: &quot;load_data&quot;
+      kwargs:
+        file_path: &quot;data/toxic_multi_class.csv&quot; # File path for input data
+    process_data:
+      module: &quot;tmlc.components.process_data&quot;
+      func: &quot;process_data&quot;
+      kwargs:
+        text_column: &quot;comment_text&quot; # Column name for input text
+        labels_columns: [&quot;toxic&quot;] # List of column names for label(s)
+    split:
+      module: &quot;tmlc.components.split_data&quot;
+      func: &quot;split_data&quot;
+      kwargs:
+        train_ratio: 0.8 # Train split
+        val_ratio: 0.1 # Validation split
+        test_ratio: 0.1 # Test split
+        random_state: 42 # Random seed for splitting data
+        labels_columns: [&quot;toxic&quot;] # List of column names for label(s)
+</code></pre>
+<h3 id="configuration-explanation">Configuration Explanation</h3>
+<p>The configuration file is organized into several sections:</p>
+<ol>
+<li><code>trainer_config</code>: Contains settings for the training process, including seed, maximum epochs, and MLflow configuration.</li>
+<li><code>callbacks</code>: Configures early stopping and model checkpoint callbacks.</li>
+<li><code>loggers</code>: Sets up loggers for MLflow and TensorBoard.</li>
+<li><code>lightning_module_config</code>: Defines the model, optimizer, loss function, and other settings related to the model itself.</li>
+<li><code>data_module_config</code>: Specifies data-related settings such as dataset, tokenizer, data loading, and data splitting.</li>
+</ol>
+<p>Each section includes several parameters, which are briefly explained in the comments in the example configuration above. For more details on each parameter, please refer to the documentation of the respective library or module (e.g., PyTorch Lightning, torch.optim, etc.).</p>
+<p>When creating your own configuration file, ensure to include all the required sections and parameters, adjusting their values as needed for your specific use case. This configuration file should then be passed to the training script to initialize and train the <code>TextMultiLabelClassificationModel</code>.</p>
+<h2 id="saving-the-model">Saving the Model</h2>
+<p>In the model training script <code>tmlc/scripts/train.py</code> saves the model, it also registers it to MLflow. The model saving process occurs mainly within the <code>register_model</code> function. This function takes the trained model and the trainer configuration as inputs and logs the model to MLflow. It also sets MLflow tags, creates artifacts, and registers the model.</p>
+<h3 id="training-and-mlflow-registry">Training and mlflow registry</h3>
+<p>This code snippet shows the main ingridients of <code>tmlc/scripts/train.py</code> script. This how it trains a machine learning model and register it with MLflow, which is a tool for managing and tracking experiments in machine learning. Here's a step-by-step breakdown of what's happening:</p>
+<ol>
+<li><code>load_model_data_trainer_config</code> function is called to load a pre-trained model, data module and trainer configuration.</li>
+<li><code>to_partial_functions_dictionary</code> function is called twice to convert the logger and callback classes into partial functions.</li>
+<li><code>setup_trainer</code> function is called to set up the trainer object for training the model.</li>
+<li>A new MLflow run is started using the <code>mlflow.start_run</code> function to log all the relevant information about the training run to the MLflow tracking server.</li>
+<li>The <code>run_id</code> variable is set to the ID of the current run.</li>
+<li>The <code>previous</code> run associated with the <code>MLFlowLogger</code> is deleted to ensure that the current run is the only one associated with the logger.</li>
+<li>The <code>_run_id</code> attribute of the <code>MLFlowLogger</code> is set to the current run ID.</li>
+<li>The <code>fit</code> method of the <code>trainer</code> object is called to train the model on the provided data.</li>
+<li>The <code>test</code> method of the <code>trainer</code> object is called to evaluate the trained model on the test data.</li>
+<li>The <code>register_model</code> function is called to register the trained model with MLflow, and the resulting URI is stored in the <code>model_uri</code> variable.</li>
+</ol>
+<p>It is important to note that this code assumes that the MLflow tracking server is set up and running, and that the relevant experiment ID and logging parameters are configured in the config object.</p>
+<pre><code class="language-python">model, datamodule, config = load_model_data_trainer_config(file_path=file_path, check_point=check_point)
+loggers = to_partial_functions_dictionary(config.loggers)
+callbacks = to_partial_functions_dictionary(config.callbacks)
+
+trainer = setup_trainer(config=config, loggers=loggers, callbacks=callbacks)
+
+with mlflow.start_run(experiment_id=loggers[&quot;MLFlowLogger&quot;].experiment_id) as run:
+    run_id = run.info.run_id
+    loggers[&quot;MLFlowLogger&quot;].experiment.delete_run(loggers[&quot;MLFlowLogger&quot;]._run_id)
+    loggers[&quot;MLFlowLogger&quot;]._run_id = run_id
+
+    trainer.fit(model, datamodule=datamodule)
+    trainer.test(datamodule=datamodule)
+    model_uri = register_model(model, config)
+</code></pre>
+<p>To understand the saved model continue reading <a href="user_guide/model_wrapper.md">Model Wrapper</a>.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.51198bba.min.js"></script>
+      
+    
+  </body>
+</html>

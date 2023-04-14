@@ -1,0 +1,1509 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../model/">
+      
+      
+        <link rel="next" href="../../user_guide/introduction/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+    
+    
+      
+        <title>EDA - TMLC</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ded33207.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="pink">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="TMLC" class="md-header__button md-logo" aria-label="TMLC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TMLC
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              EDA
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="TMLC" class="md-nav__button md-logo" aria-label="TMLC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    TMLC
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quickstart/" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/app/">app</a>
+          
+            <label for="__nav_4_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          app
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/app/app/" class="md-nav__link">
+        app
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/app/schemas/" class="md-nav__link">
+        schemas
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/components/">components</a>
+          
+            <label for="__nav_4_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          components
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/calculate_best_thresholds/" class="md-nav__link">
+        calculate_best_thresholds
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/get_data/" class="md-nav__link">
+        get_data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/load_data/" class="md-nav__link">
+        load_data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/loss/" class="md-nav__link">
+        loss
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/metrics/" class="md-nav__link">
+        metrics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/predictions/" class="md-nav__link">
+        predictions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/process_data/" class="md-nav__link">
+        process_data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/split_data/" class="md-nav__link">
+        split_data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/configclasses/">configclasses</a>
+          
+            <label for="__nav_4_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          configclasses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/data_module_config/" class="md-nav__link">
+        data_module_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/dataset_config/" class="md-nav__link">
+        dataset_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/lightning_module_config/" class="md-nav__link">
+        lightning_module_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/mlflow_config/" class="md-nav__link">
+        mlflow_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/model_config/" class="md-nav__link">
+        model_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/partial_function_config/" class="md-nav__link">
+        partial_function_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/pretrained_config/" class="md-nav__link">
+        pretrained_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/tokenizer_config/" class="md-nav__link">
+        tokenizer_config
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configclasses/trainer_config/" class="md-nav__link">
+        trainer_config
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/dataclasses/">dataclasses</a>
+          
+            <label for="__nav_4_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          dataclasses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dataclasses/datamodule/" class="md-nav__link">
+        datamodule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dataclasses/dataset/" class="md-nav__link">
+        dataset
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dataclasses/message/" class="md-nav__link">
+        message
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/eda/">eda</a>
+          
+            <label for="__nav_4_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          eda
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eda/configclasses/" class="md-nav__link">
+        configclasses
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eda/datapreparation/" class="md-nav__link">
+        datapreparation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eda/pretraining/" class="md-nav__link">
+        pretraining
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eda/render/" class="md-nav__link">
+        render
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/eda/visualization/" class="md-nav__link">
+        visualization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/exceptions/" class="md-nav__link">
+        exceptions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../reference/scripts/">scripts</a>
+          
+            <label for="__nav_4_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          scripts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/scripts/eda/" class="md-nav__link">
+        eda
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/scripts/score/" class="md-nav__link">
+        score
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/scripts/train/" class="md-nav__link">
+        train
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/scripts/utils/" class="md-nav__link">
+        utils
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Validation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Validation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          EDA
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        EDA
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#label-distribution" class="md-nav__link">
+    Label Distribution:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#label-co-occurrence-heatmap" class="md-nav__link">
+    Label Co-Occurrence Heatmap:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#average-sentence-length-distribution" class="md-nav__link">
+    Average Sentence Length Distribution:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#n-gram-frequency-distribution" class="md-nav__link">
+    N-gram Frequency Distribution:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sentiment-distribution" class="md-nav__link">
+    Sentiment Distribution:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lexical-diversity-distribution" class="md-nav__link">
+    Lexical Diversity Distribution:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#correlation-between-label-properties" class="md-nav__link">
+    Correlation Between Label Properties:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#label-similarity-matrix" class="md-nav__link">
+    Label Similarity Matrix:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reduced-label-embeddings" class="md-nav__link">
+    Reduced Label Embeddings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-modeling-analysis" class="md-nav__link">
+    Initial modeling analysis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/dataset_requirements/" class="md-nav__link">
+        Data Requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/eda_validation/" class="md-nav__link">
+        Build EDA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/model_training/" class="md-nav__link">
+        Model Training
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/model_evaluation/" class="md-nav__link">
+        Model Evaluation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_guide/model_wrapper/" class="md-nav__link">
+        Model Wrapper
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#label-distribution" class="md-nav__link">
+    Label Distribution:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#label-co-occurrence-heatmap" class="md-nav__link">
+    Label Co-Occurrence Heatmap:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#average-sentence-length-distribution" class="md-nav__link">
+    Average Sentence Length Distribution:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#n-gram-frequency-distribution" class="md-nav__link">
+    N-gram Frequency Distribution:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sentiment-distribution" class="md-nav__link">
+    Sentiment Distribution:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lexical-diversity-distribution" class="md-nav__link">
+    Lexical Diversity Distribution:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#correlation-between-label-properties" class="md-nav__link">
+    Correlation Between Label Properties:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#label-similarity-matrix" class="md-nav__link">
+    Label Similarity Matrix:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reduced-label-embeddings" class="md-nav__link">
+    Reduced Label Embeddings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-modeling-analysis" class="md-nav__link">
+    Initial modeling analysis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<p>Multi-label text classification is a task in which a message is classified into multiple categories or labels. To achieve accurate classification, it is essential to perform exploratory data analysis (EDA) to gain insights, identify patterns and relationships, and validate assumptions. In this article, we will discuss the important EDA plots and figures for multi-label text classification, including label distribution, co-occurrence matrix, average sentence length distribution, n-gram frequency distribution, sentiment distribution, lexical diversity distribution, correlation between label properties, label similarity matrix, and reduced label embeddings.</p>
+<h2 id="introduction">Introduction:</h2>
+<p>Multi-label text classification is a complex task that requires an understanding of the relationships between labels and the text features. EDA is a crucial step in this process as it helps to identify potential issues with the dataset and guide feature engineering and model selection decisions. In this article, we will discuss the important EDA plots and figures for multi-label text classification.</p>
+<h2 id="label-distribution">Label Distribution:</h2>
+<p>The Label Distribution plot shows the distribution of labels in the dataset. It is a histogram that displays the frequency of each label in the dataset. This plot helps to understand the balance of the dataset and identify potential label imbalance. Imbalanced datasets can be a challenge for machine learning models as they tend to favor the majority class and may not be able to learn the minority class well. If the Label Distribution plot shows a significant imbalance in the dataset, one possible solution is to use techniques like data augmentation or sampling methods to balance the dataset and improve model performance.</p>
+<p><img alt="Label_Distribution" src="../../imgs/Label_Distribution.png" />
+<strong>Caption: Distribution of labels in the dataset.</strong></p>
+<h2 id="label-co-occurrence-heatmap">Label Co-Occurrence Heatmap:</h2>
+<p>The co-occurrence matrix shows the frequency with which pairs of labels occur together in the dataset. Analyzing the co-occurrence matrix can reveal the relationships between different labels and the prevalence of certain label combinations. By examining the co-occurrence matrix, we can also identify potential issues in our data. For instance, if a label is frequently co-occurring with many other labels, it could mean that the label is too broad or ambiguous and may need to be further refined or split into multiple labels. In summary, the co-occurrence matrix provides important insights into the relationships between labels in our dataset and can help guide our decision-making process when building a multi-label classifier.</p>
+<p><img alt="'Label_Co-Occurrence_Heatmap'" src="../../imgs/Label_Co-Occurrence_Heatmap.png" />
+Caption: Heatmap of label co-occurrence in the dataset.</p>
+<h2 id="average-sentence-length-distribution">Average Sentence Length Distribution:</h2>
+<p>The Average Sentence Length Distribution plot shows the distribution of average sentence lengths for each label. This plot can give insight into how complex the messages are for each label and whether there is a significant difference in the complexity of messages across labels. If the messages for each label have significantly different levels of complexity, this could impact the performance of a multi-label classifier. Additionally, this plot can also help identify labels with messages that have particularly long or short average sentence lengths. This information can be used to identify labels that may need further investigation or refinement to improve the accuracy of the classifier.</p>
+<p><img alt="toxic + '_Avg_Sentence_Length_Distribution'" src="../../imgs/toxic_Avg_Sentence_Length_Distribution.png" />
+<strong>Caption: Distribution of average sentence lengths for messages with the "toxic" label.</strong></p>
+<p><img alt="toxic + '_Message_Length_Distribution'" src="../../imgs/toxic_Message_Length_Distribution.png" />
+<strong>Caption: Distribution of message lengths for messages with the "toxic" label.</strong></p>
+<p><img alt="not_toxic + '_Avg_Sentence_Length_Distribution'" src="../../imgs/not_toxic_Avg_Sentence_Length_Distribution.png" />
+<strong>Caption: Distribution of average sentence lengths for messages with the "not_toxic" label.</strong></p>
+<p><img alt="not_toxic + '_Message_Length_Distribution'" src="../../imgs/not_toxic_Message_Length_Distribution.png" />
+<strong>Caption: Distribution of message lengths for messages with the "not_toxic" label.</strong></p>
+<h2 id="n-gram-frequency-distribution">N-gram Frequency Distribution:</h2>
+<p>N-gram frequency distribution is a plot that shows the frequency of occurrence of each n-gram in the text. In the case of a multi-label classifier that uses messages to classify them, n-gram frequency distribution helps in identifying the important n-grams that are relevant to each label. If some labels have similar n-gram frequency distributions, it might indicate that the messages in those labels share some common vocabulary or phrases. On the other hand, if some labels have very distinct n-gram frequency distributions, it might suggest that the messages in those labels are very different in terms of their language and content. Overall, the n-gram frequency distribution plot helps in identifying the important n-grams in the text and their relevance to different labels.</p>
+<p><img alt="toxic + '_1_gram_Frequency_Distribution'" src="../../imgs/toxic_1_gram_Frequency_Distribution.png" />
+<strong>Caption: Frequency distribution of 1-grams (triplets of adjacent words) for messages with the "toxic" label.</strong></p>
+<p><img alt="toxic + '_2_gram_Frequency_Distribution'" src="../../imgs/toxic_2_gram_Frequency_Distribution.png" />
+<strong>Caption: Frequency distribution of 2-grams (triplets of adjacent words) for messages with the "toxic" label.</strong></p>
+<p><img alt="toxic + '_3_gram_Frequency_Distribution'" src="../../imgs/toxic_3_gram_Frequency_Distribution.png" />
+<strong>Caption: Frequency distribution of 3-grams (triplets of adjacent words) for messages with the "toxic" label.</strong></p>
+<p><img alt="not_toxic + '_1_gram_Frequency_Distribution'" src="../../imgs/not_toxic_1_gram_Frequency_Distribution.png" />
+<strong>Caption: Frequency distribution of 1-grams (triplets of adjacent words) for messages with the "not_toxic" label.</strong></p>
+<p><img alt="not_toxic + '_2_gram_Frequency_Distribution'" src="../../imgs/not_toxic_2_gram_Frequency_Distribution.png" />
+<strong>Caption: Frequency distribution of 2-grams (triplets of adjacent words) for messages with the "not_toxic" label.</strong></p>
+<p><img alt="not_toxic + '_3_gram_Frequency_Distribution'" src="../../imgs/not_toxic_3_gram_Frequency_Distribution.png" />
+<strong>Caption: Frequency distribution of 3-grams (triplets of adjacent words) for messages with the "not_toxic" label.</strong></p>
+<h2 id="sentiment-distribution">Sentiment Distribution:</h2>
+<p>The Sentiment Distribution plot is an important visualization that displays the distribution of sentiment across different labels. A positive sentiment score indicates that the message expresses positive emotions or opinions, while a negative score indicates negative emotions or opinions. Additionally, a score of 0 indicates a neutral sentiment. This plot provides a clear understanding of the sentiment distribution for each label, which can help us identify the types of messages associated with that label and gain insights into the overall sentiment of the dataset. For example, if a particular label has a high proportion of positive sentiment messages, it may indicate that messages associated with that label tend to be more positive in nature. This information can be useful for training a multi-label classifier. Furthermore, the overall sentiment distribution can also help to identify any biases towards certain types of messages, which can impact the accuracy of the model.</p>
+<p><img alt="toxic + '_Sentiment_Distribution'" src="../../imgs/toxic_Sentiment_Distribution.png" />
+<strong>Caption: Distribution of sentiment scores for messages with the "toxic" label.</strong></p>
+<p><img alt="not_toxic + '_Sentiment_Distribution'" src="../../imgs/not_toxic_Sentiment_Distribution.png" />
+<strong>Caption: Distribution of sentiment scores for messages with the "not_toxic" label.</strong></p>
+<h2 id="lexical-diversity-distribution">Lexical Diversity Distribution:</h2>
+<p>Another important visualization in EDA is the Lexical Diversity Distribution plot, which displays the distribution of lexical diversity scores. Lexical diversity is the ratio of unique words to the total number of words in each message, and a higher score indicates a greater variety of vocabulary and potentially more complex language. This visualization provides insights into the language complexity of each label and the level of difficulty of the classification task. However, it is important to note that a high lexical diversity score does not necessarily mean that the language is more difficult to classify, as it could simply reflect the use of more specialized vocabulary in a particular domain. If one label consistently has a higher lexical diversity score compared to others, it could indicate that it is more challenging to classify due to the complexity of its language. Therefore, this plot can be used to gain a better understanding of the language characteristics of each label and potentially identify any labels that may require special attention in the classification process.</p>
+<p><img alt="toxic + '_Lexical_Diversity_Distribution'" src="../../imgs/toxic_Lexical_Diversity_Distribution.png" />
+<strong>Caption: Distribution of lexical diversity scores for messages with the "toxic" label.</strong></p>
+<p><img alt="not_toxic + '_Lexical_Diversity_Distribution'" src="../../imgs/not_toxic_Lexical_Diversity_Distribution.png" />
+<strong>Caption: Distribution of lexical diversity scores for messages with the "not_toxic" label.</strong></p>
+<h2 id="correlation-between-label-properties">Correlation Between Label Properties:</h2>
+<p>The Correlation Between Label Properties plot shows the correlation between different label properties, such as message length, sentiment, and lexical diversity, for each label. This plot helps us understand how label properties are related and identify any unique or shared correlations between labels. Interpreting the Correlation Between Label Properties plot can provide valuable insights into the relationships between different label properties. For example, if there is a high positive correlation between message length and lexical diversity score for a particular label, it suggests that longer messages are likely to have higher lexical diversity. On the other hand, if there is a high negative correlation between average sentence length and sentiment score for a particular label, it suggests that shorter sentences are likely to have more positive sentiment. Understanding the relationships between different label properties can be useful for improving the accuracy of a multi-label classifier by improving the feature representation for the classifier or sentiment analysis component.</p>
+<p><img alt="toxic + '_Correlation_between_Properties'" src="../../imgs/toxic_Correlation_between_Properties.png" />
+<strong>Caption: Heatmap of correlation coefficients between different label properties for messages with the "toxic" label.</strong></p>
+<p><img alt="not_toxic + '_Correlation_between_Properties'" src="../../imgs/not_toxic_Correlation_between_Properties.png" />
+<strong>Caption: Heatmap of correlation coefficients between different label properties for messages with the "not_toxic" label.</strong></p>
+<h2 id="label-similarity-matrix">Label Similarity Matrix:</h2>
+<p>The Label Similarity Matrix plot visualizes the pairwise similarity between different labels in the dataset based on their feature representations. This plot helps us understand how labels are related and identify any clusters or patterns in the label space. It can also help identify potential label redundancy and inform label merging or splitting decisions. If two labels have a high similarity score, it may indicate that they are redundant and can be merged into a single label without significant loss of information. Conversely, if two labels have a low similarity score, it may indicate that they are distinct and should be kept separate.</p>
+<p><img alt="'Label_Similarity_Matrix'" src="../../imgs/Label_Similarity_Matrix.png" />
+<strong>Caption: Heatmap of label similarity scores based on feature representations.</strong></p>
+<h2 id="reduced-label-embeddings">Reduced Label Embeddings</h2>
+<p>The Reduced Label Embeddings plot is a visualization of the low-dimensional embeddings of the labels obtained through dimensionality reduction techniques such as PCA or t-SNE. This plot helps to identify any patterns or clusters in the label space and visualize the relationships between the different labels in a 2D or 3D space.</p>
+<p>By evaluating the Reduced Label Embeddings plot, we can gain a better understanding of the distribution of the labels and make informed decisions during the feature engineering and model selection phases of the multi-label classification task.</p>
+<p>The Reduced Label Embeddings plot represents a reduced dimensional representation of the original label embeddings learned by the BERT model. This plot can be used to analyze and understand how the BERT model has learned to represent and cluster the different labels in the reduced dimensional space.</p>
+<p>PCA and t-SNE are two popular techniques used for dimensionality reduction. In the PCA plot, we can observe the direction and strength of the correlations between the different label embeddings. The t-SNE plot, on the other hand, highlights the non-linear structure of the embeddings, enabling us to visualize the clusters and their separability.</p>
+<p>Analyzing the Reduced Label Embeddings plot can provide valuable insights into the effectiveness of the BERT model in classifying the messages based on their multi-label classification. If the labels are well-separated in the reduced dimensional space, it indicates that the BERT model has learned a meaningful representation of the labels and can efficiently distinguish between them. However, if the labels are close to each other, it can indicate that the model is having difficulty distinguishing between them, and more training or fine-tuning may be necessary.</p>
+<p><img alt="'PCA_Reduced_Label_Embeddings'" src="../../imgs/PCA_Reduced_Label_Embeddings.png" /><img alt="'TSNE_Reduced_Label_Embeddings'" src="../../imgs/TSNE_Reduced_Label_Embeddings.png" />
+<strong>Caption: Scatterplot of label embeddings in a reduced dimensional space obtained through.</strong></p>
+<h1 id="initial-modeling-analysis">Initial modeling analysis</h1>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Model</th>
+<th>Classifier</th>
+<th>Hyperparameters</th>
+<th>Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>toxic</td>
+<td>bert-base-cased</td>
+<td>RandomForestClassifier</td>
+<td>{"bootstrap": true, "ccp_alpha": 0.0, "class_weight": null, "criterion": "gini", "max_depth": 2, "max_features": "sqrt", "max_leaf_nodes": null, "max_samples": null, "min_impurity_decrease": 0.0, "min_samples_leaf": 1, "min_samples_split": 2, "min_weight_fraction_leaf": 0.0, "n_estimators": 50, "n_jobs": null, "oob_score": false, "random_state": null, "verbose": 0, "warm_start": false}</td>
+<td>{"val_f1": 0.8000000000000002, "test_f1": 0.9090909090909091}</td>
+</tr>
+</tbody>
+</table>
+<h1 id="summary">Summary</h1>
+<p>In conclusion, analyzing the Reduced Label Embeddings in PCA and t-SNE spaces can help in understanding the distribution of the labels in the reduced dimensional space and can provide valuable insights into the effectiveness of the BERT model in classifying the messages based on their multi-label classification.</p>
+<p>Overall, by evaluating the different plots and figures presented in this EDA, we can gain a comprehensive understanding of the multi-label text classification dataset, including label distribution, label co-occurrence, language complexity, label similarity, and the effectiveness of the BERT model. These insights can help guide our decisions in feature engineering and model selection and ultimately lead to the development of more accurate and effective multi-label classifiers.</p>
+<p>It is worth noting that the list of plots and figures presented in this EDA is not exhaustive, and there may be other plots and analyses that can provide additional insights into the dataset. However, the set of plots and figures presented here covers a wide range of aspects that are crucial for the development of multi-label classifiers for text data.</p>
+<p>In conclusion, Exploratory Data Analysis is an essential step in multi-label text classification, and the plots and figures presented in this article can help data scientists gain a better understanding of their dataset, validate assumptions, and make informed decisions in the feature engineering and model selection phases.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.51198bba.min.js"></script>
+      
+    
+  </body>
+</html>
