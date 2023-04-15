@@ -47,11 +47,9 @@ def export_model_to_onnx(model: pl.LightningModule, config: TrainerConfig) -> No
 
     # Define dummy input
     encoding = config.data_module_config.dataset.tokenizer(["Hello, world!"])
-    dummy_input = {"data": {key: torch.tensor(value) for key, value in encoding.items()}}
-    dynamic_axes = {
-        "data": {0: "batch_size", 1: "sequence"},
-        "output": {0: "batch_size", 1: "sequence"},
-    }
+    dummy_input = {key: torch.tensor(value) for key, value in encoding.items()}
+    dynamic_axes = {key: {0: "batch_size", 1: "sequence"} for key in encoding.keys()}
+    dynamic_axes["output"] = {0: "batch_size", 1: "sequence"}
     torch.onnx.export(
         model,
         dummy_input,

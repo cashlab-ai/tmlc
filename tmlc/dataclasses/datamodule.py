@@ -89,7 +89,7 @@ class DataModule(pl.LightningDataModule):
                 logger.debug(f"Error loading state: {e}.")
                 logger.info("Continuing with setup without load.")
 
-        data = self.config.get_data.partial()
+        data = self.config.load_data.partial()
         self._data["train"], self._data["val"], self._data["test"] = self.config.split.partial(data)
 
     def _dataloader(self, element: str) -> DataLoader:

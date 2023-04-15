@@ -11,7 +11,7 @@ from tmlc.configclasses import (
 
 class TestLightningModuleConfig:
     @given(
-        num_classes=st.integers(min_value=1, max_value=100),
+        num_labels=st.integers(min_value=1, max_value=100),
         model=st.builds(ModelConfig),
         data_module_config=st.builds(DataModuleConfig),
         optimizer=st.builds(PartialFunctionConfig),
@@ -21,7 +21,7 @@ class TestLightningModuleConfig:
     )
     def test_from_yaml(
         self,
-        num_classes,
+        num_labels,
         model,
         data_module_config,
         optimizer,
@@ -31,7 +31,7 @@ class TestLightningModuleConfig:
     ):
         config_dict = {
             "lightningmodule": {
-                "num_classes": num_classes,
+                "num_labels": num_labels,
                 "model": model.dict(),
                 "data_module_config": data_module_config.dict(),
                 "optimizer": optimizer.dict(),

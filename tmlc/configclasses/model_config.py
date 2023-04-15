@@ -11,7 +11,7 @@ class ModelConfig(BaseModel):
         pretrained_model (PreTrainedConfig): The configuration for a pre-trained model.
         dropout_prob (float): The dropout probability to use.
         hidden_size (int): The size of the hidden layer.
-        num_classes (int): The number of output classes.
+        num_labels (int): The number of output classes.
         calculate_predictions (PartialFunctionConfig): The configuration for the
             function to calculate predictions.
     """
@@ -19,5 +19,5 @@ class ModelConfig(BaseModel):
     pretrained_model: PreTrainedConfig
     dropout_prob: float
     hidden_size: int
-    num_classes: int
+    num_labels: int
     calculate_predictions: PartialFunctionConfig

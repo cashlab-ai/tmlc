@@ -1,6 +1,6 @@
 import yaml
 from pydantic import BaseModel
-
+from typing import List, Optional
 from tmlc.configclasses import ModelConfig, PartialFunctionConfig
 
 
@@ -38,3 +38,4 @@ class LightningModuleConfig(BaseModel):
             config_dict = yaml.safe_load(f)
 
         return cls(**config_dict["lightningmodule"])
+

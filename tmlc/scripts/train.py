@@ -8,7 +8,7 @@ from tmlc.scripts.utils import (
     setup_trainer,
     to_partial_functions_dictionary,
 )
-
+from tmlc.model.explainability import InterpretabilityModule
 
 def train(file_path: str, check_point: bool = False) -> None:
     """
@@ -51,6 +51,21 @@ def train(file_path: str, check_point: bool = False) -> None:
 
         logger.info("Starting model training")
         trainer.fit(model, datamodule=datamodule)
+        model.save("model.pt")
+        # Create an instance of InterpretabilityModule
+        interpretability_module = InterpretabilityModule(model=model, tokenizer=config.data_module_config.dataset.tokenizer)
+
+        # Define a sample input text and target label
+        input_text = "This is a sample input text for interpretation."
+        target_label = 1
+
+        # Tokenize the input text
+        inputs = config.data_module_config.dataset.tokenizer(input_text)
+
+        # Attribute the model's predictions to the input features
+        attributions = interpretability_module.attribute(data=inputs, target=target_label)
+
+        logger.info(attributions)
 
         logger.info("Starting model testing")
         trainer.test(datamodule=datamodule)
@@ -59,10 +74,9 @@ def train(file_path: str, check_point: bool = False) -> None:
         logger.info(f"Model uri: {model_uri}")
 
 
+
 @click.command()
-@click.option(
-    "--file-path",
-    type=str,
+@click.option("--file-path", type=str,
     help="Path to the YAML config file or to the checkpoint if check-point flag is True",
 )
 @click.option("--check-point", type=bool, default=False, help="Flag to start from existing checkpoint")

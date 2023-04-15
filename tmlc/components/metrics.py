@@ -16,8 +16,8 @@ def calculate_metrics(
     Calculates evaluation metrics given the true labels and predicted probabilities.
 
     Args:
-        labels (torch.Tensor): True labels, of shape (n_samples, num_classes).
-        predictions (torch.Tensor): Predicted probabilities, of shape (n_samples, num_classes).
+        labels (torch.Tensor): True labels, of shape (n_samples, num_labels).
+        predictions (torch.Tensor): Predicted probabilities, of shape (n_samples, num_labels).
         element (str): Name of the element to include in metric names, such as "train" or "test".
         n_iterations (int, optional): Number of bootstrap iterations to use for calculating rates.
             Defaults to 1000.
@@ -131,7 +131,7 @@ def calculate_rates(cm):
     Each cell of the matrix represents the number of samples that fall into a particular category.
 
     Args:
-        cm (array-like): Confusion matrix, of shape (num_classes, num_classes).
+        cm (array-like): Confusion matrix, of shape (num_labels, num_labels).
 
     Returns:
         Tuple[array-like]: A tuple containing the tpr, fpr, fnr, and tnr.
@@ -163,18 +163,18 @@ def calculate_rates(cm):
     eps = 0.00000001
 
     # cm is the confusion matrix
-    num_classes = cm.shape[0]
+    num_labels = cm.shape[0]
 
     # Initialize arrays to store true positives, false negatives, false positives,
     # and true negatives for each class
-    tp = np.zeros(num_classes)
-    fn = np.zeros(num_classes)
-    fp = np.zeros(num_classes)
-    tn = np.zeros(num_classes)
+    tp = np.zeros(num_labels)
+    fn = np.zeros(num_labels)
+    fp = np.zeros(num_labels)
+    tn = np.zeros(num_labels)
 
     # Calculate true positives, false negatives, false positives, and true negatives
     # for each class
-    for i in range(num_classes):
+    for i in range(num_labels):
         tp[i] = cm[i, i]
         fn[i] = np.sum(cm[i, :]) - tp[i]
         fp[i] = np.sum(cm[:, i]) - tp[i]

@@ -64,3 +64,4 @@ class PartialFunctionConfig(BaseModel):
             partial: A partial function object.
         """
         return get_partial(self.module, self.func, self.args, self.kwargs)
+    

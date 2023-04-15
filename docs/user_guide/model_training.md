@@ -85,7 +85,7 @@ trainer_config:
         path: bert-base-cased
       dropout_prob: 0.1  # dropout probability
       hidden_size: 768  # size of the hidden layer
-      num_classes: 1  # number of classes
+      num_labels: 1  # number of classes
       calculate_predictions:
         module: "tmlc.components.predictions"  # predictions module
         func: "calculate_predictions"  # calculate predictions function

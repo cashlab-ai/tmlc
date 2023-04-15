@@ -18,8 +18,8 @@ def calculate_best_thresholds(
 
     Args:
         probabilities (torch.Tensor): Tensor of predicted probabilities for each class, of shape
-            (n_samples, num_classes).
-        labels (torch.Tensor): Tensor of true labels, of shape (n_samples, num_classes).
+            (n_samples, num_labels).
+        labels (torch.Tensor): Tensor of true labels, of shape (n_samples, num_labels).
         vmin (float): The minimum threshold value to try. Must be within the range (0, 1).
         vmax (float): The maximum threshold value to try. Must be within the range (0, 1).
         step (float): The step size to use between vmin and vmax.
@@ -68,15 +68,15 @@ def calculate_best_thresholds(
         raise ValueError(f"vmax ({vmax}) must be greater than vmin ({vmin})")
 
     # Find the optimal threshold for each class
-    _, num_classes = probabilities.shape
-    best_thresholds = torch.zeros(num_classes)
+    _, num_labels = probabilities.shape
+    best_thresholds = torch.zeros(num_labels)
 
     if maximize:
         selection = torch.argmax
     else:
         selection = torch.argmin
 
-    for i in range(num_classes):
+    for i in range(num_labels):
         scores = []
         thresholds = torch.arange(vmin, vmax, step)
         for threshold in thresholds:

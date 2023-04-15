@@ -6,7 +6,7 @@ def bceloss_inverse_frequency_weighted(labels: torch.Tensor) -> torch.Tensor:
     Compute a weighted binary cross-entropy loss based on the frequency of each class.
 
     Args:
-        labels (torch.Tensor): A tensor of shape (batch_size, num_classes) representing the true labels.
+        labels (torch.Tensor): A tensor of shape (batch_size, num_labels) representing the true labels.
 
     Returns:
         torch.Tensor: A tensor representing the binary cross-entropy loss.

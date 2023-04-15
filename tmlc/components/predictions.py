@@ -6,11 +6,11 @@ def calculate_predictions(probabilities: torch.Tensor, thresholds: torch.Tensor)
     Generate predictions for a multi-class classification task.
 
     Args:
-        probabilities: A tensor of shape (batch_size, num_classes) containing model predictions.
-        thresholds: A list of length num_classes containing the optimal thresholds for each class.
+        probabilities: A tensor of shape (batch_size, num_labels) containing model predictions.
+        thresholds: A list of length num_labels containing the optimal thresholds for each class.
 
     Returns:
-        A tensor of shape (batch_size, num_classes) with predictions.
+        A tensor of shape (batch_size, num_labels) with predictions.
 
     Example:
         Example A:
@@ -34,8 +34,8 @@ def calculate_predictions(probabilities: torch.Tensor, thresholds: torch.Tensor)
     # create a copy of the tensor to store predictions
     predictions = probabilities.clone()
     # get the number of classes from the tensor
-    _, num_classes = probabilities.shape
-    for i in range(num_classes):
+    _, num_labels = probabilities.shape
+    for i in range(num_labels):
         # iterate through the classes and assign 1 or 0 to the predictions depending on the threshold
         predictions[:, i] = (probabilities[:, i] > thresholds[i]).float()
     return predictions

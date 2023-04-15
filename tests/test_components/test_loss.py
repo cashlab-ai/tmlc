@@ -7,7 +7,7 @@ from tmlc.components.loss import loss_fn_weighted
 class TestLossFunction:
     @pytest.fixture
     def binary_labels(self):
-        # create binary labels tensor of shape (num_samples, num_classes)
+        # create binary labels tensor of shape (num_samples, num_labels)
         return torch.tensor([[1, 0], [0, 1], [1, 0]])
 
     def test_loss_fn_weighted(self, binary_labels):

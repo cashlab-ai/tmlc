@@ -11,7 +11,7 @@ class TestTextMultiLabelClassificationModel:
     @pytest.fixture(scope="class")
     def config(self):
         config = LightningModuleConfig(
-            model=dict(pretrained_model_name="distilbert-base-uncased", hidden_size=768, num_classes=3),
+            model=dict(pretrained_model_name="distilbert-base-uncased", hidden_size=768, num_labels=3),
             optimizer=dict(class_name="torch.optim.Adam", params=dict(lr=0.001)),
             define_loss=MagicMock(),
             predict=MagicMock(),
@@ -32,13 +32,13 @@ class TestTextMultiLabelClassificationModel:
         input_ids = torch.randint(0, 10000, (2, 10))
         attention_mask = torch.ones((2, 10))
         logits = model.forward(input_ids, attention_mask)
-        assert logits.shape == (2, model.config.model.num_classes)
+        assert logits.shape == (2, model.config.model.num_labels)
 
     def test_training_step(self, model):
         batch = {
             "input_ids": torch.randint(0, 10000, (2, 10)),
             "attention_mask": torch.ones((2, 10)),
-            "labels": torch.randint(0, 2, (2, model.config.model.num_classes)),
+            "labels": torch.randint(0, 2, (2, model.config.model.num_labels)),
         }
         loss = model.training_step(batch, 0)
         assert loss is not None
@@ -47,7 +47,7 @@ class TestTextMultiLabelClassificationModel:
         batch = {
             "input_ids": torch.randint(0, 10000, (2, 10)),
             "attention_mask": torch.ones((2, 10)),
-            "labels": torch.randint(0, 2, (2, model.config.model.num_classes)),
+            "labels": torch.randint(0, 2, (2, model.config.model.num_labels)),
         }
         loss = model.validation_step(batch, 0)
         assert loss is not None
@@ -56,7 +56,7 @@ class TestTextMultiLabelClassificationModel:
         batch = {
             "input_ids": torch.randint(0, 10000, (2, 10)),
             "attention_mask": torch.ones((2, 10)),
-            "labels": torch.randint(0, 2, (2, model.config.model.num_classes)),
+            "labels": torch.randint(0, 2, (2, model.config.model.num_labels)),
         }
         loss = model.test_step(batch, 0)
         assert loss is not None
@@ -77,10 +77,10 @@ class TestTextMultiLabelClassificationModel:
         input_ids = torch.randint(0, 10000, (2, 10))
         attention_mask = torch.ones((2, 10))
         logits = model.predict_logits(input_ids, attention_mask)
-        assert logits.shape == (2, model.config.model.num_classes)
+        assert logits.shape == (2, model.config.model.num_labels)
 
     def test_predict(self, model):
         input_ids = torch.randint(0, 10000, (2, 10))
         attention_mask = torch.ones((2, 10))
         predictions = model.predict(input_ids, attention_mask)
-        assert predictions.shape == (2, model.config.model.num_classes)
+        assert predictions.shape == (2, model.config.model.num_labels)

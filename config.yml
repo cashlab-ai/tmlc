@@ -50,7 +50,7 @@ trainer_config:
         path: bert-base-cased
       dropout_prob: 0.1  # dropout probability
       hidden_size: 768  # size of the hidden layer
-      num_classes: 1  # number of classes
+      num_labels: 1  # number of classes
       calculate_predictions:
         module: "tmlc.components.predictions"  # predictions module
         func: "calculate_predictions"  # calculate predictions function
@@ -78,6 +78,21 @@ trainer_config:
           vmin: 0.1  # minimum value for the threshold
           vmax: 0.9  # maximum value for the threshold
           step: 0.05  # step size for the threshold
+    explainability:
+      - module: "tmlc.model.explainability"
+        func: "integrated_gradients"
+        kwargs:
+          n_steps: 50
+      - module: "tmlc.model.explainability"
+        func: "layer_conductance"
+        kwargs:
+          n_steps: 50
+          layer: -1
+      - module: "tmlc.model.explainability"
+        func: "layer_integrated_gradients"
+        kwargs:
+          n_steps: 50
+          layer: -1
 
   data_module_config:
     state_file: "state.bin" # Location of state file
