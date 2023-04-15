@@ -2,7 +2,7 @@
 mlruns
 tensorboard_logdir
 dirpath
-model
+results
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

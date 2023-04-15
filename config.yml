@@ -7,9 +7,9 @@ trainer_config:
       log_every_n_steps: 5  # log after every 5 steps
       enable_progress_bar: True  # show progress bar during training
   mlflow_config:
-    artifact_folder: model/
-    model_path: model/mode.onnx
-    tokenizer_path: model/tokenizer
+    artifact_folder: results/
+    model_path: results/mode.onnx
+    tokenizer_path: results/tokenizer
     description: "This is a description"
     tags:
       one: 1

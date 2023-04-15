@@ -18,8 +18,9 @@ plugins:
 nav:
   - Home: index.md
   - Installation: installation.md
-  - Quickstart: quickstart.md
   - API Reference: reference/
+  - Tutorial:
+    - Quickstart: tutorial/quickstart.md
   - Validation:
     - Model: validation/model.md
     - EDA: validation/eda.md
@@ -30,3 +31,4 @@ nav:
     - Model Training: user_guide/model_training.md
     - Model Evaluation: user_guide/model_evaluation.md
     - Model Wrapper: user_guide/model_wrapper.md
+  - Troubleshooting: troubleshooting.md
