@@ -81,21 +81,6 @@ trainer_config:
           vmin: 0.1  # minimum value for the threshold
           vmax: 0.9  # maximum value for the threshold
           step: 0.05  # step size for the threshold
-    explainability:
-      - module: "tmlc.model.explainability"
-        func: "integrated_gradients"
-        kwargs:
-          n_steps: 50
-      - module: "tmlc.model.explainability"
-        func: "layer_conductance"
-        kwargs:
-          n_steps: 50
-          layer: -1
-      - module: "tmlc.model.explainability"
-        func: "layer_integrated_gradients"
-        kwargs:
-          n_steps: 50
-          layer: -1
 
   data_module_config:
     state_file: "state.bin" # Location of state file

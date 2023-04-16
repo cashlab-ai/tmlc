@@ -10,7 +10,6 @@ from captum.attr import (
 from tmlc.model import TextMultiLabelClassificationModel
 from captum.attr import visualization as viz
 
-
 class InterpretabilityModule:
     def __init__(self, model: TextMultiLabelClassificationModel, tokenizer: Any):
         self.model = model
