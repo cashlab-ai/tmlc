@@ -9,7 +9,7 @@ from tmlc.eda import preprocess_data, visualize_multi_label_data
 from tmlc.eda.configclasses import EDAClassifiersEvaluationConfig
 from tmlc.eda.pretraining import train_and_evaluate_classifiers
 from tmlc.eda.render import render_eda_output
-from tmlc.scripts.utils import load_yaml_config
+from tmlc.utils import load_yaml_config
 
 logging.getLogger("transformers.configuration_utils").setLevel(logging.ERROR)
 logging.getLogger("transformers.modeling_utils").setLevel(logging.ERROR)

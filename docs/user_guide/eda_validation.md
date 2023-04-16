@@ -9,7 +9,7 @@ python your_script.py create_eda --filepath "data/toxic_multi_class.csv" \
         --output_file "output.md" --img_folder "."
 ```
 
-Check the page [Validation/EDA](validation/eda.md) to view the content output of the analysis,
+Check the page [Validation/EDA](../validation/eda.md) to view the content output of the analysis,
 and the default resutls for the mock data.
 
 ## Example Configuration

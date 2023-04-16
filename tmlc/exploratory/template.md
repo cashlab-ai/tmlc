@@ -98,16 +98,16 @@ Analyzing the Reduced Label Embeddings plot can provide valuable insights into t
 
 # Initial modeling analysis
 
-
 | Task   | Model | Classifier | Hyperparameters | Metrics |
 |--------|-------|------------|-----------------|---------|
-{% for task, models in results.items() %}{% for model, classifiers in models.items() %}{% for classifier, data in classifiers.items() %}{% set metrics = data.metrics %}{% set hyperparams = data.hyperparams %}| {{ task }} | {{ model }} | {{ classifier }} | {{ hyperparams | to_json }} | {{ metrics | to_json}} |{% endfor %}{% endfor %}{% endfor %}
+{% for task, models in results.items() %}{% for model, classifiers in models.items() %}{% for classifier, data in classifiers.items() %}{% set metrics = data.metrics %}{% set hyperparams = data.hyperparams %}| {{ task }} | {{ model }} | {{ classifier }} | {{ hyperparams | to_json }} | {{ metrics | to_json}} |{% endfor %}{% endfor %}
+{% endfor %}
 
 # Summary
 
 In conclusion, analyzing the Reduced Label Embeddings in PCA and t-SNE spaces can help in understanding the distribution of the labels in the reduced dimensional space and can provide valuable insights into the effectiveness of the BERT model in classifying the messages based on their multi-label classification.
 
-Overall, by evaluating the different plots and figures presented in this EDA, we can gain a comprehensive understanding of the multi-label text classification dataset, including label distribution, label co-occurrence, language complexity, label similarity, and the effectiveness of the BERT model. These insights can help guide our decisions in feature engineering and model selection and ultimately lead to the development of more accurate and effective multi-label classifiers.
+Overall, by evaluating the different plots and figures presented in this EDA, we can gain a comprehensive understanding of the multi-label text classification dataset, including label distribution, label co-occurrence, language complexity, label similarity, and the effectiveness of the Transormer model. These insights can help guide our decisions in feature engineering and model selection and ultimately lead to the development of more accurate and effective multi-label classifiers.
 
 It is worth noting that the list of plots and figures presented in this EDA is not exhaustive, and there may be other plots and analyses that can provide additional insights into the dataset. However, the set of plots and figures presented here covers a wide range of aspects that are crucial for the development of multi-label classifiers for text data.
 

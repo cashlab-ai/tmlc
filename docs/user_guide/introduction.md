@@ -19,13 +19,13 @@ Before training the model, ensure that the dataset is formatted properly. The da
 - `comment_text`: Text data for classification.
 - One column for each label, with binary values (0 or 1) indicating the presence or absence of the label.
 
-For more information on how to preprocess the data, refer to the [Data Requirements](user_guide/dataset_requirements.md) user guide.
+For more information on how to preprocess the data, refer to the [Data Requirements](dataset_requirements.md) user guide.
 
 ## 2. Training script
 
 Train the multi-label text classification model using the provided training script. Adjust the model and training parameters as needed.
 
-For more information on training the model, refer to the [Training](user_guide/training.md) user guide.
+For more information on training the model, refer to the [Training](model_training.md) user guide.
 
 ## 3. Creating a Model Wrapper
 
@@ -39,7 +39,7 @@ wrapper = TextMultiLabelClassificationModelWrapperPythonModel(
 )
 ```
 
-For more information on the model wrapper, refer to the [Model Wrapper](user_guide/model_wrapper.md) documentation page.
+For more information on the model wrapper, refer to the [Model Wrapper](model_wrapper.md) documentation page.
 
 ## 4. Saving and Registering the Model
 
@@ -47,7 +47,7 @@ Save the model wrapper using from `tmlc.script.utils.register_model` function. T
 
 Once the model is saved as an MLflow artifact, it can be deployed using various deployment options supported by MLflow.
 
-For more information on the model saving, refer to the [Training](user_guide/training.md) documentation page.
+For more information on the model saving, refer to the [Training](model_training.md) documentation page.
 
 ## 5. Training Job
 TODO
@@ -58,7 +58,7 @@ By following this full training and deployment guide, you can train a multi-labe
 
 For more details on each part of the process, refer to the specific user guides provided in the documentation:
 
-- [Data Requirements](user_guide/dataset_requirements.md)
-- [Training](user_guide/training.md)
-- [Model Wrapper](user_guide/model_wrapper.md)
-- [Model Evaluation](user_guide/model_evaluation.md)
+- [Data Requirements](dataset_requirements.md)
+- [Training](model_training.md)
+- [Model Wrapper](model_wrapper.md)
+- [Model Evaluation](model_evaluation.md)

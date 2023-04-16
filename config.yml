@@ -48,9 +48,12 @@ trainer_config:
     model:
       pretrained_model:
         path: bert-base-cased
-      dropout_prob: 0.1  # dropout probability
-      hidden_size: 768  # size of the hidden layer
-      num_labels: 1  # number of classes
+      classifier:
+        module: tmlc.model.classifier.linear
+        func: LinearClassifier
+        kwargs:
+            hidden_size: 768
+            num_labels: 1
       calculate_predictions:
         module: "tmlc.components.predictions"  # predictions module
         func: "calculate_predictions"  # calculate predictions function
@@ -65,7 +68,7 @@ trainer_config:
         func: "AdamW"  # optimizer function
         kwargs:
           lr: 0.000001  # learning rate
-    define_loss:
+    calculate_loss_weights:
         module: tmlc.components.loss  # loss module
         func: bceloss_inverse_frequency_weighted  # loss function
     predict:

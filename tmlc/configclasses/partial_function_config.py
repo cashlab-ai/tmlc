@@ -25,10 +25,13 @@ def get_partial(
         partial: A partial function object.
     """
     try:
-        # Get the function object from the module and create a partial object
-        func = getattr(importlib.import_module(module), func)
+        # import the module dynamically
+        module = importlib.import_module(module)
+
+        # get the attr dynamically
+        func = getattr(module, func)
     except (AttributeError, ModuleNotFoundError):
-        raise ValueError(f"Could not find function {func} in module {module}")
+        raise ValueError(f"Could not find {func} in module {module}")
 
     args = args or []
     kwargs = kwargs or {}

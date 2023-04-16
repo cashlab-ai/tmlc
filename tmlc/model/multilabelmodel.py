@@ -3,59 +3,54 @@ import numpy as np
 import torch
 from loguru import logger
 import pytorch_lightning as pl
-from transformers import AutoModel
+from transformers import PreTrainedModel
 from tmlc.configclasses import LightningModuleConfig
-from captum.attr import IntegratedGradients, LayerConductance, LayerIntegratedGradients
+from tmlc.model.classifier import GeneralizedClassifier
+from tmlc.exceptions import ConfigError  # import the custom error class
 
 class TextMultiLabelClassificationModel(pl.LightningModule):
-    """A PyTorch Lightning module for text multi-label classification.
+    """
+    A PyTorch Lightning module for text multi-label classification.
 
     Args:
-        config: An instance of LightningModuleConfig with the necessary hyperparameters.
+        config (LightningModuleConfig): An instance of `LightningModuleConfig` with the necessary hyperparameters.
 
     Attributes:
-        backbone (AutoModel): A pretrained transformer model
-            from the transformers library.
-        classifier (torch.nn.Linear): A linear layer for classification.
-        config (LightningModuleConfig): An instance of LightningModuleConfig
-            with the necessary hyperparameters.
-        loss (Callable): A loss function for training the model.
-        thresholds (torch.Tensor): A tensor containing the best classification
-            thresholds for each label.
+        backbone (PreTrainedModel): A pretrained transformer model from the transformers library.
+        classifier (GeneralizedClassifier): A linear layer for classification.
+        config (LightningModuleConfig): An instance of `LightningModuleConfig` with the necessary hyperparameters.
+        thresholds (torch.Tensor): A tensor containing the best classification thresholds for each label.
 
     Methods:
-        _epoch_end(element):
-            Computes the loss and logits for an epoch and logs them to
-            the appropriate logger.
-        _step(batch, batch_idx, element):
+        _epoch_end(element: str) -> Dict[str, torch.Tensor]:
+            Computes the loss and logits for an epoch and logs them to the appropriate logger.
+        _step(batch: Dict[str, torch.Tensor], batch_idx: int, element: str) -> Dict[str, torch.Tensor]:
             Processes one batch of data during training or validation.
-        configure_optimizers():
+        configure_optimizers() -> torch.optim.Optimizer:
             Configures the optimizer used for training.
         forward(data: Dict[str, torch.Tensor]) -> torch.Tensor:
             Defines the forward pass of the module.
-
-        get_best_thresholds(probabilities, labels):
-            Computes the best thresholds for converting the predicted logits
-            into binary class predictions.
-        load(path, map_location):
+        update_thresholds(probabilities: torch.Tensor, labels: torch.Tensor) -> None:
+            Computes the best thresholds for converting the predicted logits into binary class predictions.
+        load(path: str, map_location: Optional[Union[torch.device, str]] = None) -> None:
             Loads the state of the module from a checkpoint file.
-        on_test_epoch_end():
+        on_test_epoch_end() -> None:
             Processes outputs after each epoch of testing and logs the evaluation results.
-        on_train_epoch_end():
-            Called at the end of the training epoch to perform any necessary operations
-            on the epoch outputs.
-        on_validation_epoch_end():
+        on_train_epoch_end() -> None:
+            Called at the end of the training epoch to perform any necessary operations on the epoch outputs.
+        on_validation_epoch_end() -> None:
             Performs end-of-epoch validation operations.
         predict(data: Dict[str, torch.Tensor]) -> torch.Tensor:
             Generates binary predictions for the input data.
         predict_logits(data: Dict[str, torch.Tensor]) -> torch.Tensor:
             Generates predictions in the form of logits.
-        test_step(batch, batch_idx):
+        test_step(batch: Dict[str, torch.Tensor], batch_idx: int) -> Dict[str, torch.Tensor]:
             Processes one batch of test data.
-        training_step(batch, batch_idx):
+        training_step(batch: Dict[str, torch.Tensor], batch_idx: int) -> Dict[str, torch.Tensor]:
             Processes one batch of training data.
-        validation_step(batch, batch_idx):
-            Processes one batch of validation data.
+        validation_step(batch: Dict[str, torch.Tensor], batch_idx: int) -> Dict[str, torch.Tensor]:
+
+        Processes one batch of validation data.
 
     Examples:
         Here's an example of how to use the `TextMultiLabelClassificationModel` class:
@@ -86,100 +81,155 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
         trainer.fit(model, datamodule)
         ```
 
-        The above code loads a configuration file, creates instances of
-        `LightningModuleConfig`, `TextMultiLabelClassificationModel`, and
-        `TrainConfig` classes, creates an instance of `EmailDataLoader` class,
-        creates an instance of `EmailDataModule` class, and trains the
-        `TextMultiLabelClassificationModel` using PyTorch Lightning's
-        `Trainer` class.
+        The above code loads a configuration file, creates instances of `LightningModuleConfig`,
+        `TextMultiLabelClassificationModel`, and `TrainConfig` classes, creates an instance of `EmailDataLoader` class,
+        creates an instance of `EmailDataModule` class, and trains the `TextMultiLabelClassificationModel` using PyTorch
+        Lightning's `Trainer` class.
     """
 
     def __init__(self, config: LightningModuleConfig):
-        """Initializes the TextMultiLabelClassificationModel.
+        """
+        Initializes the `TextMultiLabelClassificationModel` with the specified configuration.
 
         Args:
-            config: An instance of LightningModuleConfig with necessary hyperparameters.
+            config (LightningModuleConfig): An instance of `LightningModuleConfig` with the necessary hyperparameters.
         """
-        logger.info(f"Initialize TextMultiLabelClassificationModel with config: {config}")
-
+        logger.info(f"Initializing `TextMultiLabelClassificationModel` with configuration: {config}")
+        
         super().__init__()
+        
+        # Save the configuration object as an attribute of the model.
         self.config = config
-        self.backbone = config.model.pretrained_model.model
-        self.classifier = torch.nn.Linear(
-            config.model.hidden_size,
-            config.model.num_labels
-        )
+        
+        # Initialize the backbone pretrained transformer model.
+        self.backbone: PreTrainedModel = config.model.pretrained_model.model
+        self.freeze_backbone()
+        
+        # Initialize the classifier linear layer.
+        self.classifier: GeneralizedClassifier = config.model.classifier.partial()
+        if not isinstance(self.classifier, GeneralizedClassifier):
+            raise ConfigError("Failed to create GeneralizedClassifier object from config.model.classifier.")
+        
+        # Initialize the attribute that will hold the best classification thresholds for each label.
         self.thresholds = None
+        
+        # Initialize a dictionary to store the outputs from each step of the training/validation process.
         self._step_outputs = {}
 
-    @staticmethod
-    def check_data_forward(data):
-        if isinstance(data, dict):
-            for key, value in data.items():
-                if not isinstance(key, str):
-                    raise TypeError("Keys of the data dictionary must be strings")
-                if not isinstance(value, torch.Tensor):
-                    raise TypeError("Values of the data dictionary must be PyTorch tensors")
 
-    def forward(self, data: Dict[str, torch.Tensor]) -> torch.Tensor:
-        """Defines the forward pass of the module.
+    def freeze_backbone(self):
+        """
+        Freezes the parameters of the backbone pretrained transformer model so that they are not updated during training.
+        """
+        for param in self.backbone.parameters():
+            param.requires_grad = False
+
+    def unfreeze_backbone(self):
+        """
+        Unfreezes the parameters of the backbone pretrained transformer model so that they can be updated during training.
+        """
+        for param in self.backbone.parameters():
+            param.requires_grad = True
+
+    def forward(self,
+                input_ids: Optional[torch.Tensor] = None,
+                attention_mask: Optional[torch.Tensor] = None,
+                token_type_ids: Optional[torch.Tensor] = None,
+                position_ids: Optional[torch.Tensor] = None,
+                classifier_additional: Optional[torch.Tensor] = None
+                ) -> torch.Tensor:
+        """
+        Defines the forward pass of the module.
 
         Args:
-            data: Contains a dictionary with the relevant inputs.
+            input_ids (Optional[torch.Tensor]): Token indices from the tokenizer. Shape: (batch_size, sequence_length).
+            attention_mask (Optional[torch.Tensor]): Mask to avoid performing attention on padding token indices. Shape: (batch_size, sequence_length).
+            token_type_ids (Optional[torch.Tensor]): Segment token indices to indicate first and second portions of the inputs. Shape: (batch_size, sequence_length).
+            position_ids (Optional[torch.Tensor]): Indices of positions of each input sequence tokens in the position embeddings. Shape: (batch_size, sequence_length).
+            classifier_additional (Optional[torch.Tensor]): Additional tensor to be concatenated with the pooled_output before passing to the classifier. Shape: (batch_size, additional_features).
 
         Returns:
-            The output logits of the classifier.
+            torch.Tensor: The output logits of the classifier. Shape: (batch_size, num_labels).
 
         Example:
-            >>> data = {'input_ids': ..., 'attention_mask': ..., ...}
-            >>> logits = model(data)
+            >>> input_ids = ...
+            >>> attention_mask = ...
+            >>> token_type_ids = ...
+            >>> position_ids = ...
+            >>> classifier_additional = ...
+            >>> logits = model(input_ids=input_ids, attention_mask=attention_mask, token_type_ids=token_type_ids, position_ids=position_ids, classifier_additional=classifier_additional)
         """
-
-
-        self.check_data_forward(data)
+        # Prepare the data dictionary to be passed to the backbone pretrained transformer model.
+        data = {
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "token_type_ids": token_type_ids,
+            "position_ids": position_ids
+        }
+        
+        # Pass the input data through the backbone pretrained transformer model.
         output = self.backbone(**data)
+        
+        # Extract the pooled_output from the output of the backbone pretrained transformer model.
         pooled_output = output.pooler_output
-        logits = self.classifier(pooled_output)
+
+        # Concatenate the pooled_output with any additional features before passing to the classifier linear layer.
+        if classifier_additional is not None:
+            classifier_inputs = torch.cat((pooled_output, classifier_additional), dim=-1)
+        else:
+            classifier_inputs = pooled_output
+
+        # Pass the concatenated input data to the classifier linear layer to generate the output logits.
+        logits = self.classifier(classifier_inputs)
+        
         return logits
+
 
     def _step(self, batch: dict, batch_idx: int, element: str) -> torch.Tensor:
         """Processes one batch of data during training or validation.
 
         Args:
-            batch: A batch of training or validation data.
-            batch_idx: The index of the batch.
-            element: The element being processed, either "train" or "val".
+            batch (dict): A batch of training or validation data.
+            batch_idx (int): The index of the batch.
+            element (str): The element being processed, either "train" or "val".
 
         Returns:
-            A torch.Tensor containing the loss for the batch.
+            torch.Tensor: A tensor containing the loss for the batch.
+
+        Raises:
+            KeyError: If the batch is missing a required key: 'labels'.
+
         """
-        try:
-            labels = batch.pop('labels')
-            data = batch
-        except KeyError as e:
-            logger.error(f"{element} batch is missing a required key: {e}")
-            raise e
+        labels = batch.pop('labels', None)
+        if labels is None:
+            raise KeyError(f"{element} batch is missing a required key: 'labels'")
 
-        try:
-            logits = self(data)
-        except Exception as e:
-            logger.error(f"{element} batch processing failed with error: {e}")
-            raise e
+        # Compute logits for the batch
+        with torch.no_grad():
+            backbone_output = self.backbone(**batch)
+            pooled_output = backbone_output.pooler_output
 
-        if (element == "train") | (~hasattr(self, 'loss')):
-            self.loss = self.config.define_loss.partial(labels)
+        classifier_additional = batch.pop('classifier_additional', None)
+        logits = self.classifier(pooled_output, classifier_additional)
 
-        loss = self.loss(logits, labels)
+        # Compute loss for the batch
+        pos_weight = None
+        if hasattr(self.config.calculate_loss_weights, 'partial'):
+            loss_kwargs = self.config.calculate_loss_weights.partial(labels)
+
+        # TODO make the loss function a config, added here as .partial()
+        loss_fn = torch.nn.BCEWithLogitsLoss(**loss_kwargs)
+        loss = loss_fn(logits, labels)
+
+        # Log loss to appropriate logger
         self.log(f'{element}_loss', loss)
 
+        # Store step outputs for logging at epoch end
         outputs = {'loss': loss, 'logits': logits, 'labels': labels}
-
-        if element not in self._step_outputs.keys():
-            self._step_outputs[element]: List[Dict[str, torch.Tensor]] = [outputs]
-        else:
-            self._step_outputs[element].append(outputs)
+        self._step_outputs.setdefault(element, []).append(outputs)
 
         return loss
+
 
     def training_step(self, batch: dict, batch_idx: int) -> torch.Tensor:
         """Processes one batch of training data.
@@ -232,10 +282,7 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
         """
         return self._step(batch, batch_idx, element="test")
 
-    def get_best_thresholds(self,
-            probabilities: torch.Tensor,
-            labels: torch.Tensor
-        ) -> np.ndarray:
+    def update_thresholds(self, probabilities: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
         """Computes the best thresholds for converting the predicted logits into binary class predictions.
 
         Args:
@@ -245,50 +292,65 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
                 representing the ground truth labels for each class.
 
         Returns:
-            np.ndarray. The best thresholds, it is also stored in the `best_thresholds`
-            attribute of the model.
+            torch.Tensor: The best thresholds, which are also stored in the `thresholds` attribute of the model.
         """
-        best_thresholds = self.config.calculate_best_thresholds.partial(
-            probabilities=probabilities, labels=labels
-        )
-        if hasattr(self, 'thresholds'):
-            self.thresholds = (self.thresholds + best_thresholds) / 2
-        else:
-            self.thresholds = torch.tensor([0.5] * self.config.model.num_labels)
+        self.thresholds = self.config.calculate_best_thresholds.partial(probabilities=probabilities, labels=labels)
         return self.thresholds
+
+    def on_epoch_start(self):
+        """Method called at the beginning of each epoch. 
+        
+        If `pretrain_classifier` is `True`, and the current epoch equals the pretrain epoch specified
+        in the configuration, set `pretrain_classifier` to `False` and unfreeze the backbone.
+        """
+        if self.pretrain_classifier and self.current_epoch == self.config.pretrain_epochs:
+            self.pretrain_classifier = False
+            self.unfreeze_backbone()
 
     def _epoch_end(self, element: str) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """Computes the loss and logits for an epoch, and logs them to the appropriate logger.
 
         Args:
-            element: A string representing the element for which the epoch is being
-            computed (e.g., "train" or "val").
+            element (str): A string representing the element for which the epoch is being
+                computed (e.g., "val" or "test").
 
         Returns:
-            A tuple containing the loss, logits, and labels for the epoch.
+            Tuple[torch.Tensor, torch.Tensor, torch.Tensor]: A tuple containing the loss,
+            logits, and labels for the epoch.
+
+        Example:
+            >>> element = 'val'
+            >>> loss, logits, labels = model._epoch_end(element)
         """
-        loss, logits, labels = self.aggregate_outputs(self._step_outputs[element])
+        loss, logits, labels = self.aggregate_outputs(self._step_outputs[element]).values()
         probabilities = self.config.predict.partial(logits)
-        self.get_best_thresholds(probabilities, labels)
+        if element == "val":
+            self.update_thresholds(probabilities, labels)
         predictions = self.config.model.calculate_predictions.partial(probabilities=probabilities, thresholds=self.thresholds)
         metrics = self.config.calculate_metrics.partial(labels=labels, predictions=predictions, element=element)
         self.log(f'{element}_epoch_loss', loss)
         self.log_dict(metrics, on_epoch=True)
         return loss, logits, labels
 
+
     def on_train_epoch_end(self) -> None:
         """Called at the end of the training epoch to perform any necessary operations on the epoch outputs.
-
-        Args:
-            outputs: A list of dictionaries containing the outputs from each training
-            batch in the epoch.
 
         Returns:
             None
         """
-        loss, _, _ = self.aggregate_outputs(self._step_outputs["train"])
+        train_outputs = self._step_outputs.get("train", [])
+        if not train_outputs:
+            return
+            
+        loss, _, _ = self.aggregate_outputs(train_outputs).values()
         self.log(f'train_epoch_loss', loss)
-        self.log('learning_rate', self.optimizers().param_groups[0]['lr'])
+
+        optimizer = self.optimizers()
+        if optimizer is not None:
+            lr = optimizer.param_groups[0].get("lr")
+            if lr is not None:
+                self.log('learning_rate', lr)
 
     def on_validation_epoch_end(self) -> None:
         """Performs end-of-epoch validation operations, including computing loss, logits, and metrics for the
@@ -319,16 +381,26 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
     @staticmethod
     def aggregate_outputs(
         outputs: List[Dict[str, Any]]
-    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    ) -> Dict[str, torch.Tensor]:
         """Aggregate the outputs of a batch of samples.
 
         Args:
-            outputs (List[Dict[str, Any]]): A list of output dictionaries for each sample in the batch.
+            outputs (List[Dict[str, Any]]):
+                A list of output dictionaries for each sample in the batch. Each dictionary must contain
+                the following keys:
+                    - loss (torch.Tensor): The loss value for the sample.
+                    - logits (torch.Tensor): The predicted logits for the sample.
+                    - labels (torch.Tensor): The true labels for the sample.
 
         Returns:
-            loss, logits, labels (tuple): A tuple containing the mean loss (as a tensor), the concatenated logits (as a tensor),
-            and the concatenated labels (as a tensor).
-        
+            A dictionary containing the following keys:
+                - loss (torch.Tensor):
+                    The mean loss value across the batch of samples.
+                - logits (torch.Tensor):
+                    The concatenated predicted logits for the batch of samples, with shape (batch_size, num_classes).
+                - labels (torch.Tensor):
+                    The concatenated true labels for the batch of samples, with shape (batch_size, num_classes).
+
         Example:
             Here's an example of how to use the `aggregate_outputs` function:
 
@@ -344,7 +416,10 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
             ... ]
 
             >>> # Call the aggregate_outputs function to compute the mean loss and concatenate the logits and labels
-            >>> mean_loss, concatenated_logits, concatenated_labels = aggregate_outputs(outputs)
+            >>> aggregated_outputs = aggregate_outputs(outputs)
+            >>> mean_loss = aggregated_outputs["loss"]
+            >>> concatenated_logits = aggregated_outputs["logits"]
+            >>> concatenated_labels = aggregated_outputs["labels"]
 
             >>> # Print the results
             >>> print("Mean Loss:", mean_loss.item())
@@ -367,19 +442,16 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
                     [0, 1],
                     [1, 0],
                     [1, 0]])
+
         """
         # Initialize lists for storing the loss, predictions, and labels
         loss_list, logits_list, labels_list = [], [], []
 
         # Extract the loss, predictions, and labels from each output dictionary
-        try:
-            for output in outputs:
-                loss_list.append(output["loss"])
-                logits_list.append(output["logits"])
-                labels_list.append(output["labels"])
-        except Exception as e:
-            logger.error(f"Error aggregating outputs: {e}")
-            raise e
+        for output in outputs:
+            loss_list.append(output["loss"])
+            logits_list.append(output["logits"])
+            labels_list.append(output["labels"])
 
         # Compute the mean loss
         loss = torch.stack(loss_list).mean()
@@ -388,16 +460,12 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
         logits = torch.cat(logits_list, dim=0)
         labels = torch.cat(labels_list, dim=0)
 
-        # Check if the predictions and labels are on the GPU and move them to
-        # the CPU if needed to avoid memory errors.
-        if logits.is_cuda:
-            logits = logits.cpu()
-
-        if labels.is_cuda:
-            labels = labels.cpu()
+        # Concatenate the logits and labels across the batch
+        logits = torch.cat(logits_list, dim=0).detach()
+        labels = torch.cat(labels_list, dim=0).detach()
 
         # Return the aggregated loss, predictions, and labels
-        return loss, logits, labels
+        return {"loss": loss, "logits": logits, "labels": labels}
 
     def save(self, filename: str) -> None:
         """Saves the state of the module to a file.
@@ -408,7 +476,7 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
         Example:
             >>> model.save('model_checkpoint.pth')
         """
-        state_dict = {'config': self.config, 'state_dict': self.state_dict()}
+        state_dict = {'config': self.config, 'state_dict': self.state_dict(), 'thresholds': self.thresholds}
         torch.save(state_dict, filename)
 
     @classmethod
@@ -434,46 +502,78 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
         kwargs = dict(map_location=map_location or {})
         state_dict = torch.load(path, **kwargs)
         model = cls(config=state_dict['config'])
-        del state_dict['state_dict']['loss.pos_weight']
         model.load_state_dict(state_dict['state_dict'])
+        model.thresholds = state_dict['thresholds']
         return model
 
     def predict_logits(
-        self, data: Dict[str,torch.tensor], ouput_tensors: bool = True
+        self, data: Dict[str, torch.Tensor], output_tensors: bool = True
     ) -> Union[float, List[float]]:
-        """Generates predictions in the form of logits.
+        """Generate predictions in the form of logits.
 
         Args:
-            data: Dict[str,torch.tensor] to generate predictions for.
+            data (Dict[str, torch.Tensor]): A dictionary containing the input data to generate predictions for.
+            output_tensors (bool, optional): A boolean flag indicating whether to return logits as torch.Tensor objects
+                or as Python lists of floats. Defaults to True.
 
         Returns:
-            A float or a list of floats representing the logits for the input data.
+            Union[float, List[float]]: A float or a list of floats representing the logits for the input data.
 
         Example:
-            >>> data = ...
+            >>> data = {
+            ...     'input_ids': torch.tensor([[1, 2, 3], [4, 5, 6]]),
+            ...     'attention_mask': torch.tensor([[1, 1, 1], [1, 1, 0]]),
+            ... }
             >>> logits = model.predict_logits(data)
         """
-        self.check_data_forward(data)
-
+        
+        # Set the model to evaluation mode
         self.eval()
 
-        data = {key:value.to(self.device) for key, value in data.items()}
-        with torch.no_grad():
-            logits = self(data)
+        # Move the data to the device where the model is located
+        data = {key: value.to(self.device) for key, value in data.items()}
 
-        if ouput_tensors:
+        # Generate the logits using the model
+        with torch.no_grad():
+            logits = self(**data)
+
+        # Return the logits as tensors or as Python lists of floats
+        if output_tensors:
             return logits
         return logits.cpu().numpy().tolist() if len(logits.shape) > 1 else logits.cpu().item()
 
     def calculate_predictions(self, probabilities: torch.Tensor) -> torch.Tensor:
-        if self.thresholds is None:
-            logger.warning("A generic best threshold of 0.5 is being used.")
-            self.thresholds = torch.tensor([0.5] * self.config.model.num_labels)
+            """
+            Calculates binary predictions from the input probabilities and applies thresholding.
 
-        return self.config.model.calculate_predictions.partial(
-            probabilities=probabilities,
-            thresholds=self.thresholds
-        )
+            Args:
+                probabilities (torch.Tensor): A tensor of shape (batch_size, num_labels) containing the probabilities of each label
+                    for each input example, where batch_size is the number of input examples and num_labels is the number of output classes.
+
+            Returns:
+                torch.Tensor: A tensor of shape (batch_size, num_labels) containing the binary predictions for the input data,
+                    where batch_size is the number of input examples and num_labels is the number of output classes.
+
+            Raises:
+                ValueError: If the shape of the input tensor is not (batch_size, num_labels).
+
+            Example:
+                >>> probabilities = torch.tensor([[0.1, 0.9], [0.8, 0.2], [0.3, 0.7]])
+                >>> model.thresholds = torch.tensor([0.4, 0.6])
+                >>> predictions = model.calculate_predictions(probabilities)
+                >>> print(predictions)
+                tensor([[0, 1],
+                        [1, 0],
+                        [0, 1]])
+            """
+            if probabilities.shape != (len(probabilities), self.config.model.num_labels):
+                raise ValueError(f"Invalid input tensor shape. Expected (batch_size, num_labels)={self.config.model.num_labels}, got {probabilities.shape}")
+            
+            return self.config.model.calculate_predictions.partial(
+                probabilities=probabilities,
+                thresholds=self.thresholds
+            )
+
 
     def predict(self, data: Dict[str, torch.Tensor]) -> Union[torch.Tensor, Dict[str, Union[torch.Tensor, List[Tuple[torch.Tensor, torch.Tensor, torch.Tensor]]]]]:
         """Generates binary predictions for the input data and optionally computes explainability attributions.
@@ -492,7 +592,6 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
             >>> data = {'input_ids': ..., 'attention_mask': ..., ...}
             >>> predictions = model.predict(data, explainability=True)
         """
-        self.check_data_forward(data)
         logits = self.predict_logits(data)
         probabilities = self.config.predict.partial(logits)
         predictions = self.calculate_predictions(probabilities)

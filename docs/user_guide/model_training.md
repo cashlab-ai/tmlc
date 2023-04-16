@@ -100,7 +100,7 @@ trainer_config:
         func: "AdamW"  # optimizer function
         kwargs:
           lr: 0.000001  # learning rate
-    define_loss:
+    calculate_loss_weights:
         module: tmlc.components.loss  # loss module
         func: bceloss_inverse_frequency_weighted  # loss function
     predict:
@@ -169,38 +169,32 @@ When creating your own configuration file, ensure to include all the required se
 
 In the model training script `tmlc/scripts/train.py` saves the model, it also registers it to MLflow. The model saving process occurs mainly within the `register_model` function. This function takes the trained model and the trainer configuration as inputs and logs the model to MLflow. It also sets MLflow tags, creates artifacts, and registers the model.
 
-### Training and mlflow registry
+### Training 
 
-This code snippet shows the main ingridients of `tmlc/scripts/train.py` script. This how it trains a machine learning model and register it with MLflow, which is a tool for managing and tracking experiments in machine learning. Here's a step-by-step breakdown of what's happening:
-
-1. `load_model_data_trainer_config` function is called to load a pre-trained model, data module and trainer configuration.
-2. `to_partial_functions_dictionary` function is called twice to convert the logger and callback classes into partial functions.
-3. `setup_trainer` function is called to set up the trainer object for training the model.
-4. A new MLflow run is started using the `mlflow.start_run` function to log all the relevant information about the training run to the MLflow tracking server.
-5. The `run_id` variable is set to the ID of the current run.
-6. The `previous` run associated with the `MLFlowLogger` is deleted to ensure that the current run is the only one associated with the logger.
-7. The `_run_id` attribute of the `MLFlowLogger` is set to the current run ID.
-8. The `fit` method of the `trainer` object is called to train the model on the provided data.
-9. The `test` method of the `trainer` object is called to evaluate the trained model on the test data.
-10. The `register_model` function is called to register the trained model with MLflow, and the resulting URI is stored in the `model_uri` variable.
-
-It is important to note that this code assumes that the MLflow tracking server is set up and running, and that the relevant experiment ID and logging parameters are configured in the config object.
+This code snippet
 
 ```python
-model, datamodule, config = load_model_data_trainer_config(file_path=file_path, check_point=check_point)
-loggers = to_partial_functions_dictionary(config.loggers)
-callbacks = to_partial_functions_dictionary(config.callbacks)
+  from tmlc.configclasses import LightningModuleConfig, TrainConfig
+  from tmlc.model import TextMultiLabelClassificationModel
+  from tmlc.utils import load_yaml
+  from tmlc.data import EmailDataLoader, EmailDataModule
 
-trainer = setup_trainer(config=config, loggers=loggers, callbacks=callbacks)
+  # Load the configuration YAML file.
+  config = load_yaml("config.yaml")
 
-with mlflow.start_run(experiment_id=loggers["MLFlowLogger"].experiment_id) as run:
-    run_id = run.info.run_id
-    loggers["MLFlowLogger"].experiment.delete_run(loggers["MLFlowLogger"]._run_id)
-    loggers["MLFlowLogger"]._run_id = run_id
+  # Create an instance of the LightningModuleConfig class.
+  module_config = LightningModuleConfig(**config["lightning_module_config"])
 
-    trainer.fit(model, datamodule=datamodule)
-    trainer.test(datamodule=datamodule)
-    model_uri = register_model(model, config)
+  # Create an instance of the TextMultiLabelClassificationModel class.
+  model = TextMultiLabelClassificationModel(module_config)
+
+  # Create an instance of the TrainConfig class.
+  train_config = TrainConfig(**config["train_config"])
+
+  # Create an instance of the EmailDataModule class.
+  datamodule = EmailDataModule(train_dataloader=dataloader)
+
+  # Train the model.
+  trainer = pl.Trainer(**train_config.to_dict())
+  trainer.fit(model, datamodule)
 ```
-
-To understand the saved model continue reading [Model Wrapper](user_guide/model_wrapper.md).

@@ -27,7 +27,12 @@ class TextMultiLabelClassificationModelWrapperPythonModel(mlflow.pyfunc.PythonMo
         ...     thresholds=torch.tensor([0.5, 0.5, 0.5])
         ... )
     """
-    def __init__(self, model_path: str, tokenizer_config: TokenizerConfig, tokenizer_path: str, thresholds: torch.Tensor):
+    def __init__(self,
+            model_path: str,
+            tokenizer_config: TokenizerConfig,
+            tokenizer_path: str,
+            thresholds: torch.Tensor
+        ):
         self.model_path = model_path
         self.thresholds = thresholds
         self._set_tokenizer_config(tokenizer_config, tokenizer_path)

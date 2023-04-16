@@ -2,13 +2,12 @@ import click
 import mlflow
 from loguru import logger
 
-from tmlc.scripts.utils import (
+from tmlc.utils import (
     load_model_data_trainer_config,
-    register_model,
     setup_trainer,
     to_partial_functions_dictionary,
 )
-from tmlc.model.explainability import InterpretabilityModule
+from tmlc.mlflow.register_model import register_model
 
 def train(file_path: str, check_point: bool = False) -> None:
     """
@@ -52,28 +51,12 @@ def train(file_path: str, check_point: bool = False) -> None:
         logger.info("Starting model training")
         trainer.fit(model, datamodule=datamodule)
         model.save("model.pt")
-        # Create an instance of InterpretabilityModule
-        interpretability_module = InterpretabilityModule(model=model, tokenizer=config.data_module_config.dataset.tokenizer)
-
-        # Define a sample input text and target label
-        input_text = "This is a sample input text for interpretation."
-        target_label = 1
-
-        # Tokenize the input text
-        inputs = config.data_module_config.dataset.tokenizer(input_text)
-
-        # Attribute the model's predictions to the input features
-        attributions = interpretability_module.attribute(data=inputs, target=target_label)
-
-        logger.info(attributions)
 
         logger.info("Starting model testing")
         trainer.test(datamodule=datamodule)
 
         model_uri = register_model(model, config)
         logger.info(f"Model uri: {model_uri}")
-
-
 
 @click.command()
 @click.option("--file-path", type=str,

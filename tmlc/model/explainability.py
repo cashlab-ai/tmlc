@@ -10,6 +10,7 @@ from captum.attr import (
 from tmlc.model import TextMultiLabelClassificationModel
 from captum.attr import visualization as viz
 
+
 class InterpretabilityModule:
     def __init__(self, model: TextMultiLabelClassificationModel, tokenizer: Any):
         self.model = model
@@ -26,7 +27,7 @@ class InterpretabilityModule:
                 for i, key in enumerate(self.tokenizer.output_keys)
             }
 
-            return self.model(formatted_data)
+            return self.model(**formatted_data)
 
         self.layer_integrated_gradients = LayerIntegratedGradients(
             predict, self.model.backbone.embeddings
@@ -42,23 +43,26 @@ class InterpretabilityModule:
         target: int,
         n_steps: int = 50,
     ) -> Dict[str, torch.Tensor]:
+        # Tokenize the input data
         encoding = self.tokenizer(data)
         data = {key: torch.tensor(value).to("cpu").long() for key, value in encoding.items()}
 
+        # Prepare the input IDs and additional arguments
         input_ids = data.pop("input_ids")
-        additional_forward_args = tuple(data.values())
+        additional_args = tuple(data.values())
         baseline = torch.zeros_like(input_ids)
 
-        attributions = {
-            "layer_integrated_gradients": self.layer_integrated_gradients.attribute(
-                inputs=input_ids,
-                baselines=baseline,
-                target=target,
-                additional_forward_args=additional_forward_args,
-                n_steps=n_steps,
-            )
-        }
+        # Compute the Layer Integrated Gradients attributions
+        lig_attributions = self.layer_integrated_gradients.attribute(
+            inputs=input_ids,
+            baselines=baseline,
+            target=target,
+            additional_forward_args=additional_args,
+            n_steps=n_steps,
+        )
 
+        # Return the attributions in a dictionary
+        attributions = {"layer_integrated_gradients": lig_attributions}
         return attributions
 
     def visualize_attributions(
@@ -88,7 +92,7 @@ class InterpretabilityModule:
             filtered_attributions = []
 
             for token, attr in zip(text_tokens, attribution[0]):
-                if token != self.tokenizer.pad_token:
+                if token != self.tokenizer.tokenizer.pad_token:
                     filtered_tokens.append(token)
                     filtered_attributions.append(attr)
 
@@ -108,11 +112,11 @@ class InterpretabilityModule:
 
         # Create a unified visualization of all methods
         html_output = viz.visualize_text(visualizations)
+
         output_path = "image.html"
         # Save the HTML output to a file
         with open(output_path, "w") as f:
             f.write(html_output.data)
-
 
     def explain(
         self,
