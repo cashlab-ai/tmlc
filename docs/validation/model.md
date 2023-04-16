@@ -1,8 +1,14 @@
-# Estimating the Number of Records for Multi-Label Classification using Transformer
+#  Text Multi-Label Classification using Transformer
+
+Transformers have revolutionized the field of natural language processing with their ability to capture context from both left and right while processing input text. Their pre-trained language models provide an excellent starting point for a wide range of tasks, including multi-label classification.
+
+## Task that it can be used at
+
+## Estimating the Number of Records for Multi-Label Classification using Transformer
 
 Estimating the number of records required to train a Transformer model for multi-label classification can be challenging. In this section, we will discuss different strategies to estimate the number of records and suggest experiments to validate these strategies.
 
-## Strategies for Estimating the Number of Records
+### Strategies for Estimating the Number of Records
 
 - **Transfer Learning Advantage**: Leverage the fact that Transformer already possesses significant general language understanding. Start with a smaller number of records and gradually increase the number of records in your experiments.
 

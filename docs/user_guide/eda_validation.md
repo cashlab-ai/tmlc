@@ -17,7 +17,7 @@ and the default resutls for the mock data.
 Here's an example configuration file for the `EDAClassifiersEvaluationConfig`. This file includes settings necessary to create the EDA.
 
 ```yaml
-eda:
+exploratory:
   output_file: docs/validation/eda.md
   message_column: "comment_text" # Column name for input text
   labels_columns: ["toxic"] # List of column names for label(s)

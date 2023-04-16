@@ -5,10 +5,10 @@ import click
 import matplotlib as mpl
 from loguru import logger
 
-from tmlc.eda import preprocess_data, visualize_multi_label_data
-from tmlc.eda.configclasses import EDAClassifiersEvaluationConfig
-from tmlc.eda.pretraining import train_and_evaluate_classifiers
-from tmlc.eda.render import render_eda_output
+from tmlc.exploratory import preprocess_data, visualize_multi_label_data
+from tmlc.exploratory.configclasses import EDAClassifiersEvaluationConfig
+from tmlc.exploratory.pretraining import train_and_evaluate_classifiers
+from tmlc.exploratory.render import render_eda_output
 from tmlc.utils import load_yaml_config
 
 logging.getLogger("transformers.configuration_utils").setLevel(logging.ERROR)
