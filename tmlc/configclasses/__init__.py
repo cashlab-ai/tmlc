@@ -1,4 +1,4 @@
-from .mlflow_config import MlflowConfig
+from .mlflow_config import MLFlowConfig
 from .partial_function_config import PartialFunctionConfig
 from .pretrained_config import PreTrainedConfig
 from .tokenizer_config import TokenizerConfig

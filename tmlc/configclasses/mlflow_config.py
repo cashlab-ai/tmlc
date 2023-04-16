@@ -3,7 +3,7 @@ from typing import Any, Dict, Optional
 from pydantic import BaseModel
 
 
-class MlflowConfig(BaseModel):
+class MLFlowConfig(BaseModel):
     """
     Configuration class for logging a model and tokenizer with MLflow.
 

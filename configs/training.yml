@@ -46,6 +46,7 @@ trainer_config:
   lightning_module_config:
     model_name: TMLC  # name of the model
     model:
+      num_labels: 1
       pretrained_model:
         path: bert-base-cased
       classifier:

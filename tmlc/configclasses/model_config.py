@@ -18,3 +18,4 @@ class ModelConfig(BaseModel):
     pretrained_model: PreTrainedConfig
     classifier: PartialFunctionConfig
     calculate_predictions: PartialFunctionConfig
+    num_labels: int

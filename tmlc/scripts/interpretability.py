@@ -2,24 +2,75 @@ import click
 import mlflow
 from loguru import logger
 
-from tmlc.utils import (
-    load_model_data_trainer_config
-)
+from tmlc.utils import load_model_data_trainer_config
 from tmlc.model.explainability import InterpretabilityModule
+from tmlc.model import TextMultiLabelClassificationModel
 
-file_path = "config.yml"
+@click.command()
+@click.option(
+    "--file-path",
+    type=str,
+    help="Path to the YAML config file and trained model.",
+)
+@click.option(
+    "--model-path",
+    type=str,
+    help="Path to the checkpoint of trained model.",
+)
+@click.option(
+    "--input-text",
+    type=str,
+    default="This is a sample input text for interpretation.",
+    help="Input text to explain.",
+)
+@click.option(
+    "--target-label",
+    type=int,
+    default=0,
+    help="Target label to explain.",
+)
+def explain(
+    file_path: str,
+    model_path: str,
+    input_text: str,
+    target_label: int,
+) -> None:
+    """
+    Explains the predictions of the TextMultiLabelClassificationModel on the given input text
+    using the specified target label.
 
-model, datamodule, config = load_model_data_trainer_config(file_path=file_path)
+    Args:
+        file_path: Path to the YAML config file and trained model.
+        model_path: Path to the checkpoint of trained model.
+        input_text: Input text to explain.
+        target_label: Target label to explain.
 
-model.load("/Users/wave/github/toxic/tmlc/model.pt")
+    Example:
+        To explain the predictions of the TextMultiLabelClassificationModel on a sample input text,
+        run the following command in the terminal:
 
-# Create an instance of InterpretabilityModule
-interpretability_module = InterpretabilityModule(model=model, tokenizer=config.data_module_config.dataset.tokenizer)
+        ```
+        python tmlc/scripts/interpretability.py --file-path configs/training.yml --model-path model.pt \
+              --input-text "This is a sample input text for interpretation." --target-label 0
+        ```
+    """
 
-# Define a sample input text and target label
-input_text = ["This is a sample input text for interpretation."]
-target_label = 0
+    logger.info(f"Loading model and trainer configuration from {file_path}")
+    _, _, config = load_model_data_trainer_config(file_path=file_path)
 
-# Attribute the model's predictions to the input features
-attributions = interpretability_module.explain(data=input_text, target=target_label)
-print(attributions)
+    model = TextMultiLabelClassificationModel.load(model_path)
+
+    # Create an instance of InterpretabilityModule
+    interpretability_module = InterpretabilityModule(
+        model=model, tokenizer=config.data_module_config.dataset.tokenizer
+    )
+
+    # Attribute the model's predictions to the input features
+    attributions = interpretability_module.explain(
+        data=[input_text], target=target_label
+    )
+
+    logger.info(f"Attributions: {attributions}")
+
+if __name__ == "__main__":
+    explain()

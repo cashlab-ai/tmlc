@@ -7,7 +7,7 @@ from loguru import logger
 from sklearn.metrics import f1_score
 from sklearn.model_selection import GridSearchCV
 
-from tmlc.eda.configclasses import (
+from tmlc.exploratory.configclasses import (
     EDAClassifiersEvaluationConfig,
     SklearnClassifiersConfig,
     TransformerModelConfig,

@@ -1,4 +1,4 @@
-eda:
+exploratory:
   output_file: docs/validation/eda.md
   message_column: "comment_text" # Column name for input text
   labels_columns: ["toxic"] # List of column names for label(s)

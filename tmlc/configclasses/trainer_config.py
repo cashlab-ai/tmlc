@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from tmlc.configclasses import (
     DataModuleConfig,
     LightningModuleConfig,
-    MlflowConfig,
+    MLFlowConfig,
     PartialFunctionConfig,
 )
 
@@ -20,7 +20,7 @@ class TrainerConfig(BaseModel):
             Configuration for the LightningModule.
         data_module_config (DataModuleConfig):
             Configuration for the DataModule.
-        mlflow_config (MlflowConfig):
+        mlflow_config (MLFlowConfig):
             Configuration for MLflow tracking.
         callbacks (List[PartialFunctionConfig]):
             List of callbacks to use during training.
@@ -39,7 +39,7 @@ class TrainerConfig(BaseModel):
 
     lightning_module_config: LightningModuleConfig
     data_module_config: DataModuleConfig
-    mlflow_config: MlflowConfig
+    mlflow_config: MLFlowConfig
     callbacks: List[PartialFunctionConfig]
     loggers: List[PartialFunctionConfig]
     kwargs: Optional[dict] = None

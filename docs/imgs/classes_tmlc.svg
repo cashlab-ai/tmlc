@@ -251,11 +251,11 @@
 <polyline fill="none" stroke="black" points="2434.5,-68.5 2592.5,-68.5"/>
 <text text-anchor="middle" x="2513.5" y="-53.3" font-family="Times,serif" font-size="14.00"> </text>
 </g>
-<!-- tmlc.configclasses.mlflow_config.MlflowConfig -->
+<!-- tmlc.configclasses.mlflow_config.MLFlowConfig -->
 <g id="node12" class="node">
-<title>tmlc.configclasses.mlflow_config.MlflowConfig</title>
+<title>tmlc.configclasses.mlflow_config.MLFlowConfig</title>
 <polygon fill="none" stroke="black" points="1838,-663.5 1838,-807.5 2031,-807.5 2031,-663.5 1838,-663.5"/>
-<text text-anchor="middle" x="1934.5" y="-792.3" font-family="Times,serif" font-size="14.00">MlflowConfig</text>
+<text text-anchor="middle" x="1934.5" y="-792.3" font-family="Times,serif" font-size="14.00">MLFlowConfig</text>
 <polyline fill="none" stroke="black" points="1838,-784.5 2031,-784.5"/>
 <text text-anchor="start" x="1846" y="-769.3" font-family="Times,serif" font-size="14.00">artifact_folder : str</text>
 <text text-anchor="start" x="1846" y="-754.3" font-family="Times,serif" font-size="14.00">description : str</text>
@@ -266,9 +266,9 @@
 <polyline fill="none" stroke="black" points="1838,-686.5 2031,-686.5"/>
 <text text-anchor="middle" x="1934.5" y="-671.3" font-family="Times,serif" font-size="14.00"> </text>
 </g>
-<!-- tmlc.configclasses.mlflow_config.MlflowConfig&#45;&gt;tmlc.configclasses.trainer_config.TrainerConfig -->
+<!-- tmlc.configclasses.mlflow_config.MLFlowConfig&#45;&gt;tmlc.configclasses.trainer_config.TrainerConfig -->
 <g id="edge7" class="edge">
-<title>tmlc.configclasses.mlflow_config.MlflowConfig&#45;&gt;tmlc.configclasses.trainer_config.TrainerConfig</title>
+<title>tmlc.configclasses.mlflow_config.MLFlowConfig&#45;&gt;tmlc.configclasses.trainer_config.TrainerConfig</title>
 <path fill="none" stroke="black" d="M1886.64,-807.45C1855,-854.35 1812.99,-916.63 1777.6,-969.08"/>
 <polygon fill="black" stroke="black" points="1777.61,-969.08 1777.57,-976.29 1770.89,-979.02 1770.93,-971.81 1777.61,-969.08"/>
 <text text-anchor="middle" x="1902.5" y="-844.8" font-family="Times,serif" font-size="14.00" fill="green">mlflow_config</text>

@@ -66,6 +66,5 @@ def train(file_path: str, check_point: bool = False) -> None:
 def ctrain(file_path: str, check_point: bool = False) -> None:
     return train(file_path, check_point)
 
-
 if __name__ == "__main__":
     ctrain()

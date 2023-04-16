@@ -99,7 +99,7 @@ class InterpretabilityModule:
             visualizations.append(
                 viz.VisualizationDataRecord(
                     filtered_attributions,
-                    self.model.predict(data)[target].item(),
+                    self.model.predict(data, include_probabilities=True)["probabilities"][target].item(),
                     target,
                     target,
                     method,

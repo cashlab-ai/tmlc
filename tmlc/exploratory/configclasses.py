@@ -30,4 +30,4 @@ class EDAClassifiersEvaluationConfig(BaseModel):
         with open(file_path, "r") as f:
             config_dict = yaml.safe_load(f)
 
-        return cls(**config_dict["eda"])
+        return cls(**config_dict["exploratory"])

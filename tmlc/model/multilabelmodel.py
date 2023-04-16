@@ -111,8 +111,9 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
             raise ConfigError("Failed to create GeneralizedClassifier object from config.model.classifier.")
         
         # Initialize the attribute that will hold the best classification thresholds for each label.
-        self.thresholds = None
-        
+        if not hasattr(self, "thresholds"):
+            self.thresholds = None
+
         # Initialize a dictionary to store the outputs from each step of the training/validation process.
         self._step_outputs = {}
 
@@ -210,10 +211,15 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
             pooled_output = backbone_output.pooler_output
 
         classifier_additional = batch.pop('classifier_additional', None)
-        logits = self.classifier(pooled_output, classifier_additional)
+
+        if classifier_additional is not None:
+            classifier_inputs = torch.cat((pooled_output, classifier_additional), dim=-1)
+        else:
+            classifier_inputs = pooled_output
+
+        logits = self.classifier(classifier_inputs)
 
         # Compute loss for the batch
-        pos_weight = None
         if hasattr(self.config.calculate_loss_weights, 'partial'):
             loss_kwargs = self.config.calculate_loss_weights.partial(labels)
 
@@ -263,6 +269,7 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
             >>> for batch_idx, batch in enumerate(val_dataloader):
             ...     loss = model.validation_step(batch, batch_idx)
         """
+
         return self._step(batch, batch_idx, element="val")
 
     def test_step(self, batch: dict, batch_idx: int) -> torch.Tensor:
@@ -538,9 +545,9 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
             logits = self(**data)
 
         # Return the logits as tensors or as Python lists of floats
-        if output_tensors:
-            return logits
-        return logits.cpu().numpy().tolist() if len(logits.shape) > 1 else logits.cpu().item()
+        if not output_tensors:
+            logits = logits.cpu().numpy().tolist() if len(logits.shape) > 1 else logits.cpu().item()
+        return logits
 
     def calculate_predictions(self, probabilities: torch.Tensor) -> torch.Tensor:
             """
@@ -575,24 +582,29 @@ class TextMultiLabelClassificationModel(pl.LightningModule):
             )
 
 
-    def predict(self, data: Dict[str, torch.Tensor]) -> Union[torch.Tensor, Dict[str, Union[torch.Tensor, List[Tuple[torch.Tensor, torch.Tensor, torch.Tensor]]]]]:
-        """Generates binary predictions for the input data and optionally computes explainability attributions.
+    def predict(self, data: Dict[str, torch.Tensor], include_probabilities: bool = False) -> Union[torch.Tensor, Dict[str, Union[torch.Tensor, List[Tuple[torch.Tensor, torch.Tensor, torch.Tensor]]]]]:
+        """
+        Generates binary predictions for the input data and optionally computes explainability attributions.
 
         Args:
             data (Dict[str, torch.tensor]): A dictionary containing input tensors (input_ids, attention_mask, etc.).
+            include_probabilities (bool): If True, returns probabilities along with predictions. Default: False.
 
         Returns:
-            torch.Tensor: A tensor of shape (batch_size, num_labels) containing the binary predictions for the input data,
-                        where batch_size is the number of input examples and num_labels is the number of output classes.
-                        If explainability is True, returns a dictionary with keys "prediction" and "explainability",
-                        where "prediction" contains the binary predictions and "explainability" contains the
-                        attributions for each label.
+            Union[torch.Tensor, Dict[str, Union[torch.Tensor, List[Tuple[torch.Tensor, torch.Tensor, torch.Tensor]]]]]: A tensor of shape (batch_size, num_labels) containing the binary predictions for the input data,
+            where batch_size is the number of input examples and num_labels is the number of output classes.
+            If include_probabilities is True, returns a dictionary with keys "logits", "probabilities", and "predictions",
+            where "logits" contains the model logits, "probabilities" contains the predicted probabilities, and "predictions"
+            contains the binary predictions. If include_probabilities is False, returns a dictionary with keys "logits" and "predictions",
+            where "logits" contains the model logits and "predictions" contains the binary predictions.
 
         Example:
             >>> data = {'input_ids': ..., 'attention_mask': ..., ...}
-            >>> predictions = model.predict(data, explainability=True)
+            >>> predictions = model.predict(data, include_probabilities=True)
         """
         logits = self.predict_logits(data)
         probabilities = self.config.predict.partial(logits)
         predictions = self.calculate_predictions(probabilities)
-        return predictions
+        if include_probabilities:
+            return {"logits": logits, "probabilities": probabilities, "predictions": predictions}
+        return {"logits": logits, "predictions": predictions}
