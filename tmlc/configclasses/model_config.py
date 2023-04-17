@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
-from tmlc.configclasses import PartialFunctionConfig, PreTrainedConfig
-
+from tmlc.configclasses.pretrained_config import PreTrainedConfig
+from tmlc.configclasses.partial_function_config import PartialFunctionConfig
 
 class ModelConfig(BaseModel):
     """

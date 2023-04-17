@@ -1,3 +1,4 @@
+from .tokenizer_config import TokenizerConfig
 from .data_module_config import DataModuleConfig
 from .dataset_config import DatasetConfig
 from .lightning_module_config import LightningModuleConfig
@@ -5,5 +6,4 @@ from .mlflow_config import MLFlowConfig
 from .model_config import ModelConfig
 from .partial_function_config import PartialFunctionConfig
 from .pretrained_config import PreTrainedConfig
-from .tokenizer_config import TokenizerConfig
 from .trainer_config import TrainerConfig

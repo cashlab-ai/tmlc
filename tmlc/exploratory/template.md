@@ -1,6 +1,4 @@
-Multi-label text classification is a task in which a message is classified into multiple categories or labels. To achieve accurate classification, it is essential to perform exploratory data analysis (EDA) to gain insights, identify patterns and relationships, and validate assumptions. In this article, we will discuss the important EDA plots and figures for multi-label text classification, including label distribution, co-occurrence matrix, average sentence length distribution, n-gram frequency distribution, sentiment distribution, lexical diversity distribution, correlation between label properties, label similarity matrix, and reduced label embeddings.
-
-## Introduction:
+# Exploratory Data Analysis:
 
 Multi-label text classification is a complex task that requires an understanding of the relationships between labels and the text features. EDA is a crucial step in this process as it helps to identify potential issues with the dataset and guide feature engineering and model selection decisions. In this article, we will discuss the important EDA plots and figures for multi-label text classification.
 
@@ -96,19 +94,19 @@ Analyzing the Reduced Label Embeddings plot can provide valuable insights into t
 **Caption: Scatterplot of label embeddings in a reduced dimensional space obtained through.**
 
 
-# Initial modeling analysis
+## Initial modeling analysis
 
 | Task   | Model | Classifier | Hyperparameters | Metrics |
 |--------|-------|------------|-----------------|---------|
 {% for task, models in results.items() %}{% for model, classifiers in models.items() %}{% for classifier, data in classifiers.items() %}{% set metrics = data.metrics %}{% set hyperparams = data.hyperparams %}| {{ task }} | {{ model }} | {{ classifier }} | {{ hyperparams | to_json }} | {{ metrics | to_json}} |{% endfor %}{% endfor %}
 {% endfor %}
 
-# Summary
+## Summary
 
-In conclusion, analyzing the Reduced Label Embeddings in PCA and t-SNE spaces can help in understanding the distribution of the labels in the reduced dimensional space and can provide valuable insights into the effectiveness of the BERT model in classifying the messages based on their multi-label classification.
+In conclusion, analyzing Reduced Label Embeddings using PCA and t-SNE techniques can help us understand the distribution of labels in lower-dimensional spaces, providing valuable insights into the effectiveness of the BERT model for multi-label classification tasks.
 
-Overall, by evaluating the different plots and figures presented in this EDA, we can gain a comprehensive understanding of the multi-label text classification dataset, including label distribution, label co-occurrence, language complexity, label similarity, and the effectiveness of the Transormer model. These insights can help guide our decisions in feature engineering and model selection and ultimately lead to the development of more accurate and effective multi-label classifiers.
+By evaluating various plots and figures throughout this EDA, we gain a comprehensive understanding of the multi-label text classification dataset. This includes aspects such as label distribution, label co-occurrence, language complexity, label similarity, and the effectiveness of Transformer models. These insights can guide our decisions regarding feature engineering and model selection, ultimately leading to the development of more accurate and effective multi-label classifiers.
 
-It is worth noting that the list of plots and figures presented in this EDA is not exhaustive, and there may be other plots and analyses that can provide additional insights into the dataset. However, the set of plots and figures presented here covers a wide range of aspects that are crucial for the development of multi-label classifiers for text data.
+It's essential to note that the list of plots and figures presented in this EDA is not exhaustive. There may be other plots and analyses that can offer additional insights into the dataset. However, the set of plots and figures presented here covers a wide range of aspects critical for developing multi-label classifiers for textual data.
 
-In conclusion, Exploratory Data Analysis is an essential step in multi-label text classification, and the plots and figures presented in this article can help data scientists gain a better understanding of their dataset, validate assumptions, and make informed decisions in the feature engineering and model selection phases.
+In conclusion, Exploratory Data Analysis is a vital step in multi-label text classification. The plots and figures discussed in this article can help data scientists gain a better understanding of their datasets, validate assumptions, and make informed decisions during feature engineering and model selection phases.

@@ -4,7 +4,7 @@ import torch
 from torch.utils.data import Dataset
 
 from tmlc.configclasses import DatasetConfig
-from tmlc.dataclasses import Message
+from tmlc.dataclasses.message import Message
 
 
 class Dataset(Dataset):

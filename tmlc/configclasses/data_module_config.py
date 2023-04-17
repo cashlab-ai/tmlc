@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
-from tmlc.configclasses import DatasetConfig, PartialFunctionConfig
+from tmlc.configclasses.partial_function_config import PartialFunctionConfig
+from tmlc.configclasses.dataset_config import DatasetConfig
 
 
 class DataModuleConfig(BaseModel):

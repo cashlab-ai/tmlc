@@ -3,7 +3,8 @@ from typing import Optional
 import yaml
 from pydantic import BaseModel
 
-from tmlc.configclasses import ModelConfig, PartialFunctionConfig
+from tmlc.configclasses.model_config import ModelConfig
+from tmlc.configclasses.partial_function_config import PartialFunctionConfig
 
 
 class LightningModuleConfig(BaseModel):

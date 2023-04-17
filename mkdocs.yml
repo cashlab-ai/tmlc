@@ -1,10 +1,12 @@
-site_name: TMLC
+site_name: TMLC · Text Multi-label Classification
 theme:
-  name: material
   palette:
-    primary: indigo
-    accent: pink
-  auto: true
+    primary: white
+    accent: indigo
+  name: material
+  logo: 
+  favicon: 
+
 plugins:
   - search
   - gen-files:
@@ -16,21 +18,29 @@ plugins:
   - mkdocstrings
   - include-markdown
 
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
 nav:
   - Home: index.md
   - Installation: installation.md
   - API Reference: reference/
-  - UML: uml.md
-  - Validation:
+  - Multi-Label Classification Transformer Model:
     - Task Complexity: validation/task_complexity.md
-    - Model: validation/model.md
+    - Building Model: validation/model.md
+    - Training: validation/training.md
     - Interpretability: validation/interpretability.md
     - Evaluation: validation/evaluation.md
-    - EDA: validation/eda.md
+    - EDA Example: validation/eda.md
   - User Guide:
     - Introduction: user_guide/introduction.md
     - Data Requirements: user_guide/dataset_requirements.md
     - Build EDA: user_guide/eda_validation.md
     - Model Training: user_guide/model_training.md
     - Model Wrapper: user_guide/model_wrapper.md
+  - UML: uml.md
   - Troubleshooting: troubleshooting.md

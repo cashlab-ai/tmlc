@@ -4,7 +4,7 @@ from loguru import logger
 from torch.utils.data import DataLoader
 
 from tmlc.configclasses import DataModuleConfig
-from tmlc.dataclasses import Dataset
+from tmlc.dataclasses.dataset import Dataset
 
 
 class DataModule(pl.LightningDataModule):
