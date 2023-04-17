@@ -1,10 +1,13 @@
 import mlflow.pyfunc
-import torch
-from tmlc.configclasses import TokenizerConfig
 import onnxruntime as rt
+import torch
+
+from tmlc.configclasses import TokenizerConfig
+
 
 class TextMultiLabelClassificationModelWrapperPythonModel(mlflow.pyfunc.PythonModel):
-    """Wrapper class for multi-label text classification models.
+    """
+    Wrapper class for multi-label text classification models.
 
     Args:
         model_path (str): Path to the ONNX model file.
@@ -27,12 +30,14 @@ class TextMultiLabelClassificationModelWrapperPythonModel(mlflow.pyfunc.PythonMo
         ...     thresholds=torch.tensor([0.5, 0.5, 0.5])
         ... )
     """
-    def __init__(self,
-            model_path: str,
-            tokenizer_config: TokenizerConfig,
-            tokenizer_path: str,
-            thresholds: torch.Tensor
-        ):
+
+    def __init__(
+        self,
+        model_path: str,
+        tokenizer_config: TokenizerConfig,
+        tokenizer_path: str,
+        thresholds: torch.Tensor,
+    ):
         self.model_path = model_path
         self.thresholds = thresholds
         self._set_tokenizer_config(tokenizer_config, tokenizer_path)
@@ -40,7 +45,8 @@ class TextMultiLabelClassificationModelWrapperPythonModel(mlflow.pyfunc.PythonMo
         self.tokenizer = None
 
     def _set_tokenizer_config(self, tokenizer_config: TokenizerConfig, tokenizer_path: str):
-        """Sets the tokenizer configuration and path.
+        """
+        Sets the tokenizer configuration and path.
 
         Args:
             tokenizer_config (TokenizerConfig): Tokenizer configuration object.
@@ -52,7 +58,8 @@ class TextMultiLabelClassificationModelWrapperPythonModel(mlflow.pyfunc.PythonMo
         self.tokenizer_config.instance = None
 
     def load_context(self, context):
-        """Loads the model into memory.
+        """
+        Loads the model into memory.
 
         Args:
             context: MLflow context object.
@@ -61,7 +68,8 @@ class TextMultiLabelClassificationModelWrapperPythonModel(mlflow.pyfunc.PythonMo
         self.model = rt.InferenceSession(self.model_path)
 
     def predict_logits(self, context, input_data: dict) -> torch.Tensor:
-        """Predicts class probabilities for the given input text.
+        """
+        Predicts class probabilities for the given input text.
 
         Args:
             context: MLflow context object.
@@ -80,7 +88,8 @@ class TextMultiLabelClassificationModelWrapperPythonModel(mlflow.pyfunc.PythonMo
         return torch.tensor(scores)
 
     def predict(self, context, input_data: dict, thresholds: torch.Tensor = None) -> torch.Tensor:
-        """Predicts class labels for the given input text.
+        """
+        Predicts class labels for the given input text.
 
         Args:
             context: MLflow context object.

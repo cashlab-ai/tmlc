@@ -1,3 +1,3 @@
+from .classifier import LinearClassifier
 from .modelwrapper import TextMultiLabelClassificationModelWrapperPythonModel
 from .multilabelmodel import TextMultiLabelClassificationModel
-from .classifier import LinearClassifier

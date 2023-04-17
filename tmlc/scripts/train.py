@@ -2,12 +2,13 @@ import click
 import mlflow
 from loguru import logger
 
+from tmlc.mlflow.register_model import register_model
 from tmlc.utils import (
     load_model_data_trainer_config,
     setup_trainer,
     to_partial_functions_dictionary,
 )
-from tmlc.mlflow.register_model import register_model
+
 
 def train(file_path: str, check_point: bool = False) -> None:
     """
@@ -58,13 +59,17 @@ def train(file_path: str, check_point: bool = False) -> None:
         model_uri = register_model(model, config)
         logger.info(f"Model uri: {model_uri}")
 
+
 @click.command()
-@click.option("--file-path", type=str,
+@click.option(
+    "--file-path",
+    type=str,
     help="Path to the YAML config file or to the checkpoint if check-point flag is True",
 )
 @click.option("--check-point", type=bool, default=False, help="Flag to start from existing checkpoint")
 def ctrain(file_path: str, check_point: bool = False) -> None:
     return train(file_path, check_point)
+
 
 if __name__ == "__main__":
     ctrain()

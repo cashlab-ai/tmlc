@@ -5,6 +5,7 @@ from typing import Any, Dict, List
 from jinja2 import Environment
 from loguru import logger
 
+
 def to_json(value):
     """
     Converts a Python object to a JSON string.
@@ -58,11 +59,7 @@ def render_eda_output(
     template = env.from_string(template_str)
 
     # Render the template with the necessary variables
-    rendered_template = template.render(
-        figures=figures,
-        unique_labels=unique_labels,
-        results=results
-    )
+    rendered_template = template.render(figures=figures, unique_labels=unique_labels, results=results)
 
     # Save the rendered Markdown to a file
     with open(output_file, "w") as f:

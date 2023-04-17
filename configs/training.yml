@@ -71,12 +71,12 @@ trainer_config:
           lr: 0.000001  # learning rate
     calculate_loss_weights:
         module: tmlc.components.loss  # loss module
-        func: bceloss_inverse_frequency_weighted  # loss function
+        func: inverse_frequency_weighted  # loss weights function
     predict:
       module: "torch"  # module to use for prediction
       func: "sigmoid"  # function to use for prediction
-    calculate_best_thresholds:
-      module: "tmlc.components.calculate_best_thresholds"  # module to use for calculating best thresholds
+    thresholds:
+      module: "tmlc.components.thresholds"  # module to use for calculating best thresholds
       func: "calculate_best_thresholds"  # function to use for calculating best thresholds
       kwargs:
           vmin: 0.1  # minimum value for the threshold

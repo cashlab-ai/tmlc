@@ -2,8 +2,9 @@ from typing import List
 
 import torch
 from torch.utils.data import Dataset
-from tmlc.dataclasses import Message
+
 from tmlc.configclasses import DatasetConfig
+from tmlc.dataclasses import Message
 
 
 class Dataset(Dataset):

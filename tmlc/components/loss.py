@@ -1,7 +1,7 @@
 import torch
 
 
-def bceloss_inverse_frequency_weighted(labels: torch.Tensor) -> torch.Tensor:
+def inverse_frequency_weighted(labels: torch.Tensor) -> torch.Tensor:
     """
     Compute inverse frequency weights for each class in a dataset.
 

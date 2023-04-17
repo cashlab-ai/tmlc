@@ -2,8 +2,9 @@ import pytorch_lightning as pl
 import torch
 from loguru import logger
 from torch.utils.data import DataLoader
-from tmlc.dataclasses import Dataset
+
 from tmlc.configclasses import DataModuleConfig
+from tmlc.dataclasses import Dataset
 
 
 class DataModule(pl.LightningDataModule):

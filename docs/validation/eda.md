@@ -1,6 +1,4 @@
-Multi-label text classification is a task in which a message is classified into multiple categories or labels. To achieve accurate classification, it is essential to perform exploratory data analysis (EDA) to gain insights, identify patterns and relationships, and validate assumptions. In this article, we will discuss the important EDA plots and figures for multi-label text classification, including label distribution, co-occurrence matrix, average sentence length distribution, n-gram frequency distribution, sentiment distribution, lexical diversity distribution, correlation between label properties, label similarity matrix, and reduced label embeddings.
-
-## Introduction:
+## Exploratory Data Analysis:
 
 Multi-label text classification is a complex task that requires an understanding of the relationships between labels and the text features. EDA is a crucial step in this process as it helps to identify potential issues with the dataset and guide feature engineering and model selection decisions. In this article, we will discuss the important EDA plots and figures for multi-label text classification.
 
@@ -9,7 +7,7 @@ Multi-label text classification is a complex task that requires an understanding
 The Label Distribution plot shows the distribution of labels in the dataset. It is a histogram that displays the frequency of each label in the dataset. This plot helps to understand the balance of the dataset and identify potential label imbalance. Imbalanced datasets can be a challenge for machine learning models as they tend to favor the majority class and may not be able to learn the minority class well. If the Label Distribution plot shows a significant imbalance in the dataset, one possible solution is to use techniques like data augmentation or sampling methods to balance the dataset and improve model performance.
 
 ![Label_Distribution](../imgs/Label_Distribution.png)
-**Caption: Distribution of labels in the dataset.**
+Caption: Distribution of labels in the dataset.
 
 ## Label Co-Occurrence Heatmap:
 
@@ -24,16 +22,16 @@ The Average Sentence Length Distribution plot shows the distribution of average 
 
 
 ![toxic + '_Avg_Sentence_Length_Distribution'](../imgs/toxic_Avg_Sentence_Length_Distribution.png)
-**Caption: Distribution of average sentence lengths for messages with the "toxic" label.**
+Caption: Distribution of average sentence lengths for messages with the "toxic" label.
 
 ![toxic + '_Message_Length_Distribution'](../imgs/toxic_Message_Length_Distribution.png)
-**Caption: Distribution of message lengths for messages with the "toxic" label.**
+Caption: Distribution of message lengths for messages with the "toxic" label.
 
 ![not_toxic + '_Avg_Sentence_Length_Distribution'](../imgs/not_toxic_Avg_Sentence_Length_Distribution.png)
-**Caption: Distribution of average sentence lengths for messages with the "not_toxic" label.**
+Caption: Distribution of average sentence lengths for messages with the "not_toxic" label.
 
 ![not_toxic + '_Message_Length_Distribution'](../imgs/not_toxic_Message_Length_Distribution.png)
-**Caption: Distribution of message lengths for messages with the "not_toxic" label.**
+Caption: Distribution of message lengths for messages with the "not_toxic" label.
 
 
 ## N-gram Frequency Distribution:
@@ -42,22 +40,22 @@ N-gram frequency distribution is a plot that shows the frequency of occurrence o
 
 
 ![toxic + '_1_gram_Frequency_Distribution'](../imgs/toxic_1_gram_Frequency_Distribution.png)
-**Caption: Frequency distribution of 1-grams (triplets of adjacent words) for messages with the "toxic" label.**
+Caption: Frequency distribution of 1-grams (triplets of adjacent words) for messages with the "toxic" label.
 
 ![toxic + '_2_gram_Frequency_Distribution'](../imgs/toxic_2_gram_Frequency_Distribution.png)
-**Caption: Frequency distribution of 2-grams (triplets of adjacent words) for messages with the "toxic" label.**
+Caption: Frequency distribution of 2-grams (triplets of adjacent words) for messages with the "toxic" label.
 
 ![toxic + '_3_gram_Frequency_Distribution'](../imgs/toxic_3_gram_Frequency_Distribution.png)
-**Caption: Frequency distribution of 3-grams (triplets of adjacent words) for messages with the "toxic" label.**
+Caption: Frequency distribution of 3-grams (triplets of adjacent words) for messages with the "toxic" label.
 
 ![not_toxic + '_1_gram_Frequency_Distribution'](../imgs/not_toxic_1_gram_Frequency_Distribution.png)
-**Caption: Frequency distribution of 1-grams (triplets of adjacent words) for messages with the "not_toxic" label.**
+Caption: Frequency distribution of 1-grams (triplets of adjacent words) for messages with the "not_toxic" label.
 
 ![not_toxic + '_2_gram_Frequency_Distribution'](../imgs/not_toxic_2_gram_Frequency_Distribution.png)
-**Caption: Frequency distribution of 2-grams (triplets of adjacent words) for messages with the "not_toxic" label.**
+Caption: Frequency distribution of 2-grams (triplets of adjacent words) for messages with the "not_toxic" label.
 
 ![not_toxic + '_3_gram_Frequency_Distribution'](../imgs/not_toxic_3_gram_Frequency_Distribution.png)
-**Caption: Frequency distribution of 3-grams (triplets of adjacent words) for messages with the "not_toxic" label.**
+Caption: Frequency distribution of 3-grams (triplets of adjacent words) for messages with the "not_toxic" label.
 
 
 ## Sentiment Distribution:
@@ -66,10 +64,10 @@ The Sentiment Distribution plot is an important visualization that displays the 
 
 
 ![toxic + '_Sentiment_Distribution'](../imgs/toxic_Sentiment_Distribution.png)
-**Caption: Distribution of sentiment scores for messages with the "toxic" label.**
+Caption: Distribution of sentiment scores for messages with the "toxic" label.
 
 ![not_toxic + '_Sentiment_Distribution'](../imgs/not_toxic_Sentiment_Distribution.png)
-**Caption: Distribution of sentiment scores for messages with the "not_toxic" label.**
+Caption: Distribution of sentiment scores for messages with the "not_toxic" label.
 
 
 ## Lexical Diversity Distribution:
@@ -79,11 +77,11 @@ Another important visualization in EDA is the Lexical Diversity Distribution plo
 
 
 ![toxic + '_Lexical_Diversity_Distribution'](../imgs/toxic_Lexical_Diversity_Distribution.png )
-**Caption: Distribution of lexical diversity scores for messages with the "toxic" label.**
+Caption: Distribution of lexical diversity scores for messages with the "toxic" label.
 
 
 ![not_toxic + '_Lexical_Diversity_Distribution'](../imgs/not_toxic_Lexical_Diversity_Distribution.png )
-**Caption: Distribution of lexical diversity scores for messages with the "not_toxic" label.**
+Caption: Distribution of lexical diversity scores for messages with the "not_toxic" label.
 
 
 ## Correlation Between Label Properties:
@@ -92,10 +90,10 @@ The Correlation Between Label Properties plot shows the correlation between diff
 
 
 ![toxic + '_Correlation_between_Properties'](../imgs/toxic_Correlation_between_Properties.png )
-**Caption: Heatmap of correlation coefficients between different label properties for messages with the "toxic" label.**
+Caption: Heatmap of correlation coefficients between different label properties for messages with the "toxic" label.
 
 ![not_toxic + '_Correlation_between_Properties'](../imgs/not_toxic_Correlation_between_Properties.png )
-**Caption: Heatmap of correlation coefficients between different label properties for messages with the "not_toxic" label.**
+Caption: Heatmap of correlation coefficients between different label properties for messages with the "not_toxic" label.
 
 
 ## Label Similarity Matrix:
@@ -103,7 +101,7 @@ The Correlation Between Label Properties plot shows the correlation between diff
 The Label Similarity Matrix plot visualizes the pairwise similarity between different labels in the dataset based on their feature representations. This plot helps us understand how labels are related and identify any clusters or patterns in the label space. It can also help identify potential label redundancy and inform label merging or splitting decisions. If two labels have a high similarity score, it may indicate that they are redundant and can be merged into a single label without significant loss of information. Conversely, if two labels have a low similarity score, it may indicate that they are distinct and should be kept separate.
 
 !['Label_Similarity_Matrix'](../imgs/Label_Similarity_Matrix.png )
-**Caption: Heatmap of label similarity scores based on feature representations.**
+Caption: Heatmap of label similarity scores based on feature representations.
 
 ## Reduced Label Embeddings
 
@@ -118,17 +116,19 @@ PCA and t-SNE are two popular techniques used for dimensionality reduction. In t
 Analyzing the Reduced Label Embeddings plot can provide valuable insights into the effectiveness of the BERT model in classifying the messages based on their multi-label classification. If the labels are well-separated in the reduced dimensional space, it indicates that the BERT model has learned a meaningful representation of the labels and can efficiently distinguish between them. However, if the labels are close to each other, it can indicate that the model is having difficulty distinguishing between them, and more training or fine-tuning may be necessary.
 
 !['PCA_Reduced_Label_Embeddings'](../imgs/PCA_Reduced_Label_Embeddings.png)!['TSNE_Reduced_Label_Embeddings'](../imgs/TSNE_Reduced_Label_Embeddings.png)
-**Caption: Scatterplot of label embeddings in a reduced dimensional space obtained through.**
+Caption: Scatterplot of label embeddings in a reduced dimensional space obtained through.
 
 
-# Initial modeling analysis
+## Initial modeling analysis
 
 | Task   | Model | Classifier | Hyperparameters | Metrics |
 |--------|-------|------------|-----------------|---------|
-| toxic | bert-base-cased | RandomForestClassifier | {"bootstrap": true, "ccp_alpha": 0.0, "class_weight": null, "criterion": "gini", "max_depth": 2, "max_features": "sqrt", "max_leaf_nodes": null, "max_samples": null, "min_impurity_decrease": 0.0, "min_samples_leaf": 1, "min_samples_split": 2, "min_weight_fraction_leaf": 0.0, "n_estimators": 50, "n_jobs": null, "oob_score": false, "random_state": null, "verbose": 0, "warm_start": false} | {"val_f1": 0.8000000000000002, "test_f1": 0.9090909090909091} || toxic | distilbert-base-uncased | RandomForestClassifier | {"bootstrap": true, "ccp_alpha": 0.0, "class_weight": null, "criterion": "gini", "max_depth": 2, "max_features": "sqrt", "max_leaf_nodes": null, "max_samples": null, "min_impurity_decrease": 0.0, "min_samples_leaf": 1, "min_samples_split": 2, "min_weight_fraction_leaf": 0.0, "n_estimators": 50, "n_jobs": null, "oob_score": false, "random_state": null, "verbose": 0, "warm_start": false} | {"val_f1": 0.9090909090909091, "test_f1": 0.9090909090909091} || toxic | bert-base-uncased | RandomForestClassifier | {"bootstrap": true, "ccp_alpha": 0.0, "class_weight": null, "criterion": "gini", "max_depth": 2, "max_features": "sqrt", "max_leaf_nodes": null, "max_samples": null, "min_impurity_decrease": 0.0, "min_samples_leaf": 1, "min_samples_split": 2, "min_weight_fraction_leaf": 0.0, "n_estimators": 50, "n_jobs": null, "oob_score": false, "random_state": null, "verbose": 0, "warm_start": false} | {"val_f1": 0.9090909090909091, "test_f1": 0.9090909090909091} |
+| toxic | bert-base-cased | RandomForestClassifier | {"bootstrap": true, "ccp_alpha": 0.0, "class_weight": null, "criterion": "gini", "max_depth": 2, "max_features": "sqrt", "max_leaf_nodes": null, "max_samples": null, "min_impurity_decrease": 0.0, "min_samples_leaf": 1, "min_samples_split": 2, "min_weight_fraction_leaf": 0.0, "n_estimators": 50, "n_jobs": null, "oob_score": false, "random_state": null, "verbose": 0, "warm_start": false} | {"val_f1": 0.8000000000000002, "test_f1": 0.9090909090909091} |
+| toxic | distilbert-base-uncased | RandomForestClassifier | {"bootstrap": true, "ccp_alpha": 0.0, "class_weight": null, "criterion": "gini", "max_depth": 2, "max_features": "sqrt", "max_leaf_nodes": null, "max_samples": null, "min_impurity_decrease": 0.0, "min_samples_leaf": 1, "min_samples_split": 2, "min_weight_fraction_leaf": 0.0, "n_estimators": 50, "n_jobs": null, "oob_score": false, "random_state": null, "verbose": 0, "warm_start": false} | {"val_f1": 0.9090909090909091, "test_f1": 0.9090909090909091} |
+| toxic | bert-base-uncased | RandomForestClassifier | {"bootstrap": true, "ccp_alpha": 0.0, "class_weight": null, "criterion": "gini", "max_depth": 2, "max_features": "sqrt", "max_leaf_nodes": null, "max_samples": null, "min_impurity_decrease": 0.0, "min_samples_leaf": 1, "min_samples_split": 2, "min_weight_fraction_leaf": 0.0, "n_estimators": 50, "n_jobs": null, "oob_score": false, "random_state": null, "verbose": 0, "warm_start": false} | {"val_f1": 0.9090909090909091, "test_f1": 0.9090909090909091} |
 
 
-# Summary
+## Summary
 
 In conclusion, analyzing the Reduced Label Embeddings in PCA and t-SNE spaces can help in understanding the distribution of the labels in the reduced dimensional space and can provide valuable insights into the effectiveness of the BERT model in classifying the messages based on their multi-label classification.
 

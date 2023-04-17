@@ -10,9 +10,7 @@ from pydantic import BaseModel
 from tmlc.configclasses import PartialFunctionConfig, TrainerConfig
 from tmlc.dataclasses import DataModule
 from tmlc.exceptions import PartialFunctionError
-from tmlc.model import (
-    TextMultiLabelClassificationModel,
-)
+from tmlc.model import TextMultiLabelClassificationModel
 
 
 def json_to_nested_tags(data: Dict[str, Any]):

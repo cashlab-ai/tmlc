@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, Tuple
 
 import numpy as np
 import torch
@@ -80,7 +80,7 @@ def calculate_metrics(
     return metrics
 
 
-def evaluate_rates(y_true, y_pred):
+def evaluate_rates(y_true: np.ndarray, y_pred: np.ndarray) -> Dict[str, np.ndarray]:
     """
     Calculate true positive rate (tpr), false positive rate (fpr), false negative rate (fnr), and
     true negative rate (tnr) given the true labels and predicted labels.
@@ -121,7 +121,7 @@ def evaluate_rates(y_true, y_pred):
     }
 
 
-def calculate_rates(cm):
+def calculate_rates(cm: np.ndarray) -> Tuple[np.ndarray]:
     """
     Calculate true positive rate (tpr), false positive rate (fpr), false negative rate (fnr), and
     true negative rate (tnr) given a confusion matrix.
@@ -191,7 +191,9 @@ def calculate_rates(cm):
     return tpr, fpr, fnr, tnr
 
 
-def bootstrap_rates(y_true, y_pred, n_iterations=1000, percentile=2.5):
+def bootstrap_rates(
+    y_true: np.ndarray, y_pred: np.ndarray, n_iterations: int = 1000, percentile: float = 2.5
+) -> Dict[str, Dict[str, float]]:
     """
     Estimate average and error bars for true positive rate (tpr), false positive rate (fpr), false
     negative rate (fnr), and true negative rate (tnr) using bootstrapping.

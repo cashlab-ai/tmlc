@@ -3,7 +3,6 @@ from typing import Callable, Optional
 import torch
 import torchmetrics
 
-
 def calculate_best_thresholds(
     probabilities: torch.Tensor,
     labels: torch.Tensor,
@@ -45,9 +44,9 @@ def calculate_best_thresholds(
     Example:
         >>> probs = torch.Tensor([[0.6, 0.4], [0.7, 0.3], [0.8, 0.2]])
         >>> labels = torch.Tensor([[1, 0], [0, 1], [1, 1]])
-        >>> thresholds = calculate_best_thresholds(probs, labels, 0.1, 0.9, 0.1)
+        >>> thresholds = thresholds(probs, labels, 0.1, 0.9, 0.1)
         >>> print(thresholds)
-        tensor([0.5000, 0.2000])
+        tensor([0.5000, 0.1000])
 
     In this example, there are 3 samples and 2 classes. The predicted probabilities for the
     first class are [0.6, 0.7, 0.8], while for the second class they are [0.4, 0.3, 0.2].
@@ -78,7 +77,7 @@ def calculate_best_thresholds(
 
     for i in range(num_labels):
         scores = []
-        thresholds = torch.arange(vmin, vmax, step)
+        thresholds = reversed(torch.arange(vmin, vmax, step))
         for threshold in thresholds:
             predictions = (probabilities[:, i] > threshold).int()
             score = metric(labels[:, i], predictions)

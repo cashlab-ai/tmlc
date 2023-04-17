@@ -165,9 +165,9 @@
 <polygon fill="black" stroke="black" points="491.08,-862.89 497.08,-866.89 495.69,-873.97 489.7,-869.97 491.08,-862.89"/>
 <text text-anchor="middle" x="513" y="-844.8" font-family="Times,serif" font-size="14.00" fill="green">classifier</text>
 </g>
-<!-- tmlc.model.explainability.InterpretabilityModule -->
+<!-- tmlc.model.interpretability.InterpretabilityModule -->
 <g id="node7" class="node">
-<title>tmlc.model.explainability.InterpretabilityModule</title>
+<title>tmlc.model.interpretability.InterpretabilityModule</title>
 <polygon fill="none" stroke="black" points="338.5,-1325.5 338.5,-1499.5 818.5,-1499.5 818.5,-1325.5 338.5,-1325.5"/>
 <text text-anchor="middle" x="578.5" y="-1484.3" font-family="Times,serif" font-size="14.00">InterpretabilityModule</text>
 <polyline fill="none" stroke="black" points="338.5,-1476.5 818.5,-1476.5"/>
@@ -188,7 +188,7 @@
 <polygon fill="none" stroke="black" points="524,-648.5 524,-822.5 853,-822.5 853,-648.5 524,-648.5"/>
 <text text-anchor="middle" x="688.5" y="-807.3" font-family="Times,serif" font-size="14.00">LightningModuleConfig</text>
 <polyline fill="none" stroke="black" points="524,-799.5 853,-799.5"/>
-<text text-anchor="start" x="532" y="-784.3" font-family="Times,serif" font-size="14.00">calculate_best_thresholds</text>
+<text text-anchor="start" x="532" y="-784.3" font-family="Times,serif" font-size="14.00">thresholds</text>
 <text text-anchor="start" x="532" y="-769.3" font-family="Times,serif" font-size="14.00">calculate_loss_weights : Optional[PartialFunctionConfig]</text>
 <text text-anchor="start" x="532" y="-754.3" font-family="Times,serif" font-size="14.00">calculate_metrics</text>
 <text text-anchor="start" x="532" y="-739.3" font-family="Times,serif" font-size="14.00">model</text>
@@ -360,7 +360,7 @@
 <title>tmlc.configclasses.partial_function_config.PartialFunctionConfig&#45;&gt;tmlc.configclasses.lightning_module_config.LightningModuleConfig</title>
 <path fill="none" stroke="black" d="M1172.13,-313.69C1039.23,-327.76 761.91,-365.17 702.5,-437 678.12,-466.47 677.25,-561.24 680.85,-635.98"/>
 <polygon fill="black" stroke="black" points="680.84,-635.86 685.15,-641.64 681.47,-647.84 677.16,-642.06 680.84,-635.86"/>
-<text text-anchor="middle" x="772" y="-513.3" font-family="Times,serif" font-size="14.00" fill="green">calculate_best_thresholds</text>
+<text text-anchor="middle" x="772" y="-513.3" font-family="Times,serif" font-size="14.00" fill="green">thresholds</text>
 </g>
 <!-- tmlc.configclasses.partial_function_config.PartialFunctionConfig&#45;&gt;tmlc.configclasses.lightning_module_config.LightningModuleConfig -->
 <g id="edge15" class="edge">
@@ -449,9 +449,9 @@
 <polygon fill="black" stroke="black" points="2050.21,-497.44 2056.99,-495 2061.86,-500.32 2055.07,-502.77 2050.21,-497.44"/>
 <text text-anchor="middle" x="1903.5" y="-407.8" font-family="Times,serif" font-size="14.00" fill="green">pretrainedmodel</text>
 </g>
-<!-- tmlc.model.multilabelmodel.TextMultiLabelClassificationModel&#45;&gt;tmlc.model.explainability.InterpretabilityModule -->
+<!-- tmlc.model.multilabelmodel.TextMultiLabelClassificationModel&#45;&gt;tmlc.model.interpretability.InterpretabilityModule -->
 <g id="edge27" class="edge">
-<title>tmlc.model.multilabelmodel.TextMultiLabelClassificationModel&#45;&gt;tmlc.model.explainability.InterpretabilityModule</title>
+<title>tmlc.model.multilabelmodel.TextMultiLabelClassificationModel&#45;&gt;tmlc.model.interpretability.InterpretabilityModule</title>
 <path fill="none" stroke="black" d="M578.5,-1273.18C578.5,-1286.73 578.5,-1300.02 578.5,-1312.67"/>
 <polygon fill="black" stroke="black" points="578.5,-1312.71 582.5,-1318.71 578.5,-1324.71 574.5,-1318.71 578.5,-1312.71"/>
 <text text-anchor="middle" x="596" y="-1295.8" font-family="Times,serif" font-size="14.00" fill="green">model</text>

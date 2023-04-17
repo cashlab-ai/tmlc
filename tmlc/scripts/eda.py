@@ -39,9 +39,7 @@ def create_eda(config_path):
     """
 
     logger.info("Loading configuration from YAML file...")
-    config: EDAClassifiersEvaluationConfig = load_yaml_config(
-        config_path, EDAClassifiersEvaluationConfig
-    )
+    config: EDAClassifiersEvaluationConfig = load_yaml_config(config_path, EDAClassifiersEvaluationConfig)
 
     logger.info("Preprocessing data...")
     data = config.get_data.partial()
@@ -80,14 +78,10 @@ def create_eda(config_path):
     logger.info("Training and evaluating classifiers...")
     results = train_and_evaluate_classifiers(config, data)
 
-    metrics_keys = ["val_f1", "test_f1"]
     logger.info("Rendering EDA output...")
 
     render_eda_output(
-        figures=figures,
-        unique_labels=unique_labels,
-        results=results,
-        output_file=config.output_file
+        figures=figures, unique_labels=unique_labels, results=results, output_file=config.output_file
     )
     return results
 

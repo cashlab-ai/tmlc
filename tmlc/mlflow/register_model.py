@@ -1,6 +1,6 @@
 import os
 import shutil
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, Tuple
 
 import mlflow
 import pandas as pd
@@ -9,11 +9,10 @@ from mlflow.models.signature import infer_signature
 from mlflow.tracking import MlflowClient
 
 from tmlc.configclasses import TrainerConfig
-from tmlc.model import (
-    TextMultiLabelClassificationModelWrapperPythonModel,
-)
+from tmlc.model import TextMultiLabelClassificationModelWrapperPythonModel
 from tmlc.model.utils import export_onnx_and_tokenizer
 from tmlc.utils import json_to_nested_tags
+
 
 def set_mlflow_tags(config: TrainerConfig) -> None:
     """
@@ -26,21 +25,23 @@ def set_mlflow_tags(config: TrainerConfig) -> None:
     tags = json_to_nested_tags(config.dict())
     mlflow.set_tags(tags)
 
+
 def _register_model(
     config: TrainerConfig,
     artifacts: Dict[str, str],
     model,
 ) -> str:
     """
-    Register the PyTorch model in the MLflow model registry and create a model wrapper to use for inference.
+    Register the PyTorch model in the MLflow model registry and create a model wrapper to use for
+    inference.
 
-    This function registers the PyTorch model in the MLflow model registry and creates a model wrapper that can be used for
-    inference. The model wrapper includes the path to the saved ONNX model, the tokenizer, and any other information needed
-    for inference.
+    This function registers the PyTorch model in the MLflow model registry and creates a
+    model wrapper that can be used for inference. The model wrapper includes the path to
+    the saved ONNX model, the tokenizer, and any other information needed for inference.
 
     Args:
-        config: A configuration object containing training settings, such as the paths to the saved ONNX model and the
-            tokenizer.
+        config: A configuration object containing training settings, such as the paths
+            to the saved ONNX model and the tokenizer.
         artifacts: A dictionary of additional files to save with the model.
         model: The trained PyTorch model to register.
 
@@ -54,9 +55,9 @@ def _register_model(
     >>> artifacts = {'requirements.txt': 'requirements.txt'}
     >>> model_uri = _register_model(config, artifacts, model)
 
-    The function expects a trained PyTorch model, a `TrainerConfig` object containing the paths to the saved ONNX model and
-    the tokenizer, and a dictionary of additional files to save with the model. The output of the function is the URI of the
-    registered model.
+    The function expects a trained PyTorch model, a `TrainerConfig` object containing the paths
+    to the saved ONNX model and the tokenizer, and a dictionary of additional files to save with
+    the model. The output of the function is the URI of the registered model.
     """
     model_path = prepare_model_path(config)
     # Create a model wrapper and save the model
@@ -118,7 +119,8 @@ def create_artifacts(model: Any, config: TrainerConfig) -> Dict[str, str]:
 
     Args:
         model: The trained PyTorch model to save as an artifact.
-        config: The configuration for the trainer, including the paths to save the ONNX model and the tokenizer.
+        config: The configuration for the trainer, including the paths to save the ONNX model and
+            the tokenizer.
 
     Returns:
         A dictionary of MLflow artifacts.

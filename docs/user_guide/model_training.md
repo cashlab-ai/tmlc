@@ -106,9 +106,9 @@ trainer_config:
     predict:
       module: "torch"  # module to use for prediction
       func: "sigmoid"  # function to use for prediction
-    calculate_best_thresholds:
-      module: "tmlc.components.calculate_best_thresholds"  # module to use for calculating best thresholds
-      func: "calculate_best_thresholds"  # function to use for calculating best thresholds
+    thresholds:
+      module: "tmlc.components.thresholds"  # module to use for calculating best thresholds
+      func: "thresholds"  # function to use for calculating best thresholds
       kwargs:
           vmin: 0.1  # minimum value for the threshold
           vmax: 0.9  # maximum value for the threshold
@@ -169,7 +169,7 @@ When creating your own configuration file, ensure to include all the required se
 
 In the model training script `tmlc/scripts/train.py` saves the model, it also registers it to MLflow. The model saving process occurs mainly within the `register_model` function. This function takes the trained model and the trainer configuration as inputs and logs the model to MLflow. It also sets MLflow tags, creates artifacts, and registers the model.
 
-### Training 
+### Training
 
 This code snippet
 

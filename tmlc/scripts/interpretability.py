@@ -1,10 +1,9 @@
 import click
-import mlflow
 from loguru import logger
 
+from tmlc.model import InterpretabilityModule, TextMultiLabelClassificationModel
 from tmlc.utils import load_model_data_trainer_config
-from tmlc.model.explainability import InterpretabilityModule
-from tmlc.model import TextMultiLabelClassificationModel
+
 
 @click.command()
 @click.option(
@@ -36,8 +35,8 @@ def explain(
     target_label: int,
 ) -> None:
     """
-    Explains the predictions of the TextMultiLabelClassificationModel on the given input text
-    using the specified target label.
+    Explains the predictions of the TextMultiLabelClassificationModel on the given input text using
+    the specified target label.
 
     Args:
         file_path: Path to the YAML config file and trained model.
@@ -66,11 +65,10 @@ def explain(
     )
 
     # Attribute the model's predictions to the input features
-    attributions = interpretability_module.explain(
-        data=[input_text], target=target_label
-    )
+    attributions = interpretability_module.explain(data=[input_text], target=target_label)
 
     logger.info(f"Attributions: {attributions}")
+
 
 if __name__ == "__main__":
     explain()

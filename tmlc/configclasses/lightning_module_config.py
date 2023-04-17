@@ -1,6 +1,8 @@
+from typing import Optional
+
 import yaml
 from pydantic import BaseModel
-from typing import List, Optional
+
 from tmlc.configclasses import ModelConfig, PartialFunctionConfig
 
 
@@ -11,35 +13,41 @@ class LightningModuleConfig(BaseModel):
     Attributes:
         model_name (str): The name of the PyTorch Lightning module.
         model (ModelConfig): The configuration for the model to use in the PyTorch Lightning module.
-        optimizer (PartialFunctionConfig): The configuration for the optimizer function to use in the PyTorch Lightning module.
-        calculate_loss_weights (Optional[PartialFunctionConfig]): The configuration for the function to define the loss weights (optional).
-        predict (PartialFunctionConfig): The configuration for the function to generate predictions in the PyTorch Lightning module.
-        calculate_best_thresholds (PartialFunctionConfig): The configuration for the function to calculate the best thresholds in the PyTorch Lightning module.
-        calculate_metrics (PartialFunctionConfig): The configuration for the function to calculate the metrics in the PyTorch Lightning module.
-        pretrain_epochs (Optional[int]): The number of pretraining epochs to use for the PyTorch Lightning module (optional).
+        optimizer (PartialFunctionConfig): The configuration for the optimizer function to use in
+            the PyTorch Lightning module.
+        calculate_loss_weights (Optional[PartialFunctionConfig]): The configuration for the function to
+            define the loss weights (optional).
+        predict (PartialFunctionConfig): The configuration for the function to generate predictions in
+            the PyTorch Lightning module.
+        thresholds (PartialFunctionConfig): The configuration for the function to calculate the
+            best thresholds in the PyTorch Lightning module.
+        calculate_metrics (PartialFunctionConfig): The configuration for the function to calculate the metrics
+            in the PyTorch Lightning module.
+        pretrain_epochs (Optional[int]): The number of pretraining epochs to use for the PyTorch Lightning
+            module (optional).
 
     Class Methods:
         from_yaml(file_path: str) -> LightningModuleConfig:
             Class method to create a `LightningModuleConfig` object from a YAML file.
 
     Usage:
-        You can create a `LightningModuleConfig` object by specifying the required attributes as keyword arguments.
+        You can create a `LightningModuleConfig` object by specifying the required attributes
+            as keyword arguments.
 
         Example:
         >>> model_config = ModelConfig(**config_dict["model"])
         >>> optimizer_config = PartialFunctionConfig(**config_dict["optimizer"])
         >>> predict_config = PartialFunctionConfig(**config_dict["predict"])
-        >>> best_thresholds_config = PartialFunctionConfig(**config_dict["calculate_best_thresholds"])
+        >>> best_thresholds_config = PartialFunctionConfig(**config_dict["thresholds"])
         >>> metrics_config = PartialFunctionConfig(**config_dict["calculate_metrics"])
         >>> module_config = LightningModuleConfig(
         ...     model_name="my_module",
         ...     model=model_config,
         ...     optimizer=optimizer_config,
         ...     predict=predict_config,
-        ...     calculate_best_thresholds=best_thresholds_config,
+        ...     thresholds=best_thresholds_config,
         ...     calculate_metrics=metrics_config,
         ... )
-
     """
 
     model_name: str
@@ -47,7 +55,7 @@ class LightningModuleConfig(BaseModel):
     optimizer: PartialFunctionConfig
     calculate_loss_weights: Optional[PartialFunctionConfig] = None
     predict: PartialFunctionConfig
-    calculate_best_thresholds: PartialFunctionConfig
+    thresholds: PartialFunctionConfig
     calculate_metrics: PartialFunctionConfig
     pretrain_epochs: Optional[int] = 0
 

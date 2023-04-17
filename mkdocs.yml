@@ -22,7 +22,10 @@ nav:
   - API Reference: reference/
   - UML: uml.md
   - Validation:
+    - Task Complexity: validation/task_complexity.md
     - Model: validation/model.md
+    - Interpretability: validation/interpretability.md
+    - Evaluation: validation/evaluation.md
     - EDA: validation/eda.md
   - User Guide:
     - Introduction: user_guide/introduction.md
