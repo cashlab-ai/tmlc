@@ -31,24 +31,21 @@ class LightningModuleConfig(BaseModel):
         from_yaml(file_path: str) -> LightningModuleConfig:
             Class method to create a `LightningModuleConfig` object from a YAML file.
 
-    Usage:
-        You can create a `LightningModuleConfig` object by specifying the required attributes
-            as keyword arguments.
-
-        Example:
-        >>> model_config = ModelConfig(**config_dict["model"])
-        >>> optimizer_config = PartialFunctionConfig(**config_dict["optimizer"])
-        >>> predict_config = PartialFunctionConfig(**config_dict["predict"])
-        >>> best_thresholds_config = PartialFunctionConfig(**config_dict["thresholds"])
-        >>> metrics_config = PartialFunctionConfig(**config_dict["calculate_metrics"])
-        >>> module_config = LightningModuleConfig(
-        ...     model_name="my_module",
-        ...     model=model_config,
-        ...     optimizer=optimizer_config,
-        ...     predict=predict_config,
-        ...     thresholds=best_thresholds_config,
-        ...     calculate_metrics=metrics_config,
-        ... )
+    Example:
+    
+    >>> model_config = ModelConfig(**config_dict["model"])
+    >>> optimizer_config = PartialFunctionConfig(**config_dict["optimizer"])
+    >>> predict_config = PartialFunctionConfig(**config_dict["predict"])
+    >>> best_thresholds_config = PartialFunctionConfig(**config_dict["thresholds"])
+    >>> metrics_config = PartialFunctionConfig(**config_dict["calculate_metrics"])
+    >>> module_config = LightningModuleConfig(
+    ...     model_name="my_module",
+    ...     model=model_config,
+    ...     optimizer=optimizer_config,
+    ...     predict=predict_config,
+    ...     thresholds=best_thresholds_config,
+    ...     calculate_metrics=metrics_config,
+    ... )
     """
 
     model_name: str

@@ -66,10 +66,10 @@ def export_onnx_and_tokenizer(model: pl.LightningModule, config: TrainerConfig) 
             ONNX model and the tokenizer.
 
     Example:
-    >>> from my_package import export_onnx_and_tokenizer, TrainerConfig
-    >>> model = MyPyTorchModel()
-    >>> config = TrainerConfig(model_path='my_model.onnx', tokenizer_path='my_tokenizer')
-    >>> export_onnx_and_tokenizer(model, config)
+        >>> from my_package import export_onnx_and_tokenizer, TrainerConfig
+        >>> model = MyPyTorchModel()
+        >>> config = TrainerConfig(model_path='my_model.onnx', tokenizer_path='my_tokenizer')
+        >>> export_onnx_and_tokenizer(model, config)
 
     The function expects a trained PyTorch model and a `TrainerConfig` object containing the paths to
     save the ONNX model and the tokenizer. The output of the function is a saved ONNX model and tokenizer.

@@ -1,7 +1,4 @@
 #!/bin/bash
-
-pip install -r docs/requirements.txt
-
 package_name=tmlc
 docs_folder=docs
 
@@ -17,6 +14,3 @@ cat <<EOT > $docs_folder/uml.md
 ## Package Diagram
 ![Package Diagram](imgs/packages_${package_name}.svg)
 EOT
-
-# Build and serve the documentation
-mkdocs serve

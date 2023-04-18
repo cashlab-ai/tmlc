@@ -49,11 +49,11 @@ def _register_model(
         The URI of the registered model.
 
     Example:
-    >>> from my_package import _register_model, TrainerConfig
-    >>> model = MyPyTorchModel()
-    >>> config = TrainerConfig(model_path='my_model.onnx', tokenizer_path='my_tokenizer')
-    >>> artifacts = {'requirements.txt': 'requirements.txt'}
-    >>> model_uri = _register_model(config, artifacts, model)
+        >>> from my_package import _register_model, TrainerConfig
+        >>> model = MyPyTorchModel()
+        >>> config = TrainerConfig(model_path='my_model.onnx', tokenizer_path='my_tokenizer')
+        >>> artifacts = {'requirements.txt': 'requirements.txt'}
+        >>> model_uri = _register_model(config, artifacts, model)
 
     The function expects a trained PyTorch model, a `TrainerConfig` object containing the paths
     to the saved ONNX model and the tokenizer, and a dictionary of additional files to save with
@@ -126,10 +126,10 @@ def create_artifacts(model: Any, config: TrainerConfig) -> Dict[str, str]:
         A dictionary of MLflow artifacts.
 
     Example:
-    >>> from my_package import create_artifacts, TrainerConfig
-    >>> model = MyPyTorchModel()
-    >>> config = TrainerConfig(model_path='my_model.onnx', tokenizer_path='my_tokenizer')
-    >>> artifacts = create_artifacts(model, config)
+        >>> from my_package import create_artifacts, TrainerConfig
+        >>> model = MyPyTorchModel()
+        >>> config = TrainerConfig(model_path='my_model.onnx', tokenizer_path='my_tokenizer')
+        >>> artifacts = create_artifacts(model, config)
 
     The function expects a trained PyTorch model and a `TrainerConfig` object containing the paths to save the
     ONNX model and the tokenizer. The output of the function is a dictionary of MLflow artifacts.
@@ -200,10 +200,10 @@ def register_model(model, config: TrainerConfig):
         The URI of the registered model.
 
     Example:
-    >>> from my_package import register_model, TrainerConfig
-    >>> model = MyPyTorchModel()
-    >>> config = TrainerConfig(model_path='my_model.onnx', tokenizer_path='my_tokenizer')
-    >>> model_uri = register_model(model, config)
+        >>> from my_package import register_model, TrainerConfig
+        >>> model = MyPyTorchModel()
+        >>> config = TrainerConfig(model_path='my_model.onnx', tokenizer_path='my_tokenizer')
+        >>> model_uri = register_model(model, config)
 
     The function expects a trained PyTorch model and a `TrainerConfig` object containing the paths to save the
     ONNX model and the tokenizer. The output of the function is the URI of the registered model.
